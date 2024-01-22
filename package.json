@@ -4,6 +4,7 @@
   "type": "module",
   "scripts": {
     "build": "nuxt build",
+    "dev:netlify": "export NODE_ENV=development&& netlify dev",
     "dev": "nuxt dev",
     "generate": "nuxt generate",
     "preview": "nuxt preview",
