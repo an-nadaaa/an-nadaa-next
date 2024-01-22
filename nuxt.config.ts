@@ -10,7 +10,7 @@ export default defineNuxtConfig({
       },
     ],
   },
-  modules: ["@nuxtjs/tailwindcss"],
+  modules: ["@nuxtjs/tailwindcss", "@nuxtjs/strapi"],
   runtimeConfig: {
     functionBaseUrl:
       process.env.NODE_ENV === "production"
@@ -24,4 +24,8 @@ export default defineNuxtConfig({
       STRAPI_API_KEY: process.env.STRAPI_API_KEY,
     },
   },
+  // https://strapi.nuxtjs.org/setup#options
+  // strapi: {
+  //   // Options
+  // }
 });
