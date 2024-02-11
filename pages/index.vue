@@ -15,7 +15,7 @@
 </template>
 
 <script setup lang="ts">
-import qs from "qs";
+// import qs from "qs";
 import { onMounted } from "vue";
 
 // const { data, pending, error, refresh } = await useAsyncData(

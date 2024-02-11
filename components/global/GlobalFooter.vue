@@ -147,6 +147,8 @@
 </template>
 
 <script setup lang="ts">
+// import localePath from '@nuxtjs/i18n';
+
 import {
   BrandTwitterIcon,
   BrandLinkedinIcon,
