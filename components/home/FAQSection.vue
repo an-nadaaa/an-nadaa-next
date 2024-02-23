@@ -51,7 +51,7 @@ export default {
   methods: {
     switchIndex(i) {
       this.current = i
-      this.$segment.track('FAQ clicked', { q: this.faqs[i].question })
+      // this.$segment.track('FAQ clicked', { q: this.faqs[i].question })
     },
     currentIndex(i) {
       return i === this.current

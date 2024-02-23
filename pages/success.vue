@@ -33,7 +33,7 @@ import { onMounted } from 'vue';
 
 export default {
   onMounted() {
-    this.$segment.track('Donation Complete')
+    // this.$segment.track('Donation Complete')
     // this.$segment.page('Jazakoum Allahou Khayran')
   },
 }

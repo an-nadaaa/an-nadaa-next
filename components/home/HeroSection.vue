@@ -60,7 +60,7 @@ export default {
   methods: {
     showVideoPlayer() {
       this.showPlayer = true
-      this.$segment.track('Home Video Played')
+      // this.$segment.track('Home Video Played')
     },
   },
 }

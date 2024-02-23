@@ -646,25 +646,25 @@ export default {
       immediate: true,
     },
     async currentTab(v) {
-      this.$segment.track('Tab Selected', { tab: v })
+      // this.$segment.track('Tab Selected', { tab: v })
       await this.populateCards()
     },
     async sortFilterSelected(v) {
-      this.$segment.track('Sort Filter Selected', {
-        filter: v,
-      })
+      // this.$segment.track('Sort Filter Selected', {
+      //   filter: v,
+      // })
       await this.populateCards()
     },
     async tagsSelected(v) {
-      this.$segment.track('Tags Selected', {
-        tags: v,
-      })
+      // this.$segment.track('Tags Selected', {
+      //   tags: v,
+      // })
       await this.populateCards()
     },
     async categoriesSelected(v) {
-      this.$segment.track('Categories Selected', {
-        categories: v,
-      })
+      // this.$segment.track('Categories Selected', {
+      //   categories: v,
+      // })
       await this.populateCards()
     },
   },
