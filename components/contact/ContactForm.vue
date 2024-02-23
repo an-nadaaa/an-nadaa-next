@@ -161,13 +161,15 @@
 </template>
 
 <script>
+import { onMounted } from 'vue';
+
 export default {
   data() {
     return {
       email: 'b9a6d9877fa1aca555140617b2ec027b',
     }
   },
-  mounted() {
+  onMounted() {
     const form = document.getElementById('contact-form')
     // analytics.trackForm(form, 'Contacted Us')
   },

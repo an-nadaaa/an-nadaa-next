@@ -47,8 +47,9 @@
 </template>
 
 <script>
+  import { onMounted } from 'vue';
 export default {
-  mounted() {
+  onMounted() {
     const form = document.getElementById('mc-embedded-subscribe-form')
     // analytics.trackForm(form, 'Subscribed to newsletter')
   },

@@ -428,6 +428,7 @@
 
 <script>
 import { XIcon, ChevronDownIcon, PlusIcon, MinusIcon, LayoutGridIcon, FilterIcon } from 'vue-tabler-icons'
+import { onMounted } from 'vue'
 import BounceLoader from 'vue-spinner/src/BounceLoader.vue'
 import qs from 'qs'
 
@@ -503,7 +504,7 @@ export default {
       QUERY_SIZE: PAGINATION_SIZE,
     }
   },
-  mounted() {
+  onMounted() {
     this.loading = true
     this.cards = this.initialCauses
     this.paginationData = this.initialPaginationData

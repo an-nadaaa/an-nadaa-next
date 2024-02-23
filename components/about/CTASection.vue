@@ -18,6 +18,7 @@
 
 <script>
 import * as CTA_SECTION from '~/content/site/about/cta_section.json'
+import { onMounted } from 'vue'
 
 export default {
   data() {
@@ -25,7 +26,7 @@ export default {
       ctaSection: CTA_SECTION.en,
     }
   },
-  mounted() {
+  onMounted() {
     const link = document.getElementById('about-cta-link')
     // this.$segment.trackLink(link, 'About CTA Clicked')
   },

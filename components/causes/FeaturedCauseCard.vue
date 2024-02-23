@@ -105,6 +105,7 @@
 <script>
 import { CURRENCY_NAME } from '@/config/config'
 import { InfoCircleIcon } from 'vue-tabler-icons'
+import { onMounted } from 'vue'
 import 'tippy.js/themes/light.css'
 import 'tippy.js/themes/light-border.css'
 import 'tippy.js/themes/google.css'
@@ -124,7 +125,7 @@ export default {
       type: Number,
     },
   },
-  mounted() {
+  onMounted() {
     const link = document.getElementById(`featured-cause-link-${this.cause.id}`)
     // this.$segment.trackLink(link, 'Featured Cause Clicked', {
     //   title: this.cause.attributes.title,

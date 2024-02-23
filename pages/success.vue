@@ -29,8 +29,10 @@
 </template>
 
 <script>
+import { onMounted } from 'vue';
+
 export default {
-  mounted() {
+  onMounted() {
     this.$segment.track('Donation Complete')
     // this.$segment.page('Jazakoum Allahou Khayran')
   },

@@ -10,6 +10,8 @@
 </template>
 
 <script>
+import { onMounted } from 'vue';
+
 export default {
   head() {
     return {
@@ -24,7 +26,7 @@ export default {
       ],
     }
   },
-  mounted() {
+  onMounted() {
     // this.$segment.page('About')
   },
 }

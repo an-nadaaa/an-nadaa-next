@@ -59,6 +59,7 @@
 
 <script>
 import * as TEAM_SECTION from '~/content/site/about/team_section.json'
+import { onMounted } from 'vue'
 
 export default {
   data() {
@@ -67,7 +68,7 @@ export default {
       people: [],
     }
   },
-  async mounted() {
+  async onMounted() {
     this.people = await this.$content('members', this.$i18n.locale).fetch()
   },
 }

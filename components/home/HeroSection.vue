@@ -36,6 +36,7 @@
 <script>
 import HERO_CONTENT from '~/content/site/home/hero_section.json'
 import { PlayerPlayIcon } from 'vue-tabler-icons'
+import { onMounted } from 'vue'
 import bg from '../../assets/img/Sectionhero.png'
 
 export default {
@@ -49,7 +50,7 @@ export default {
       showPlayer: false,
     }
   },
-  mounted() {
+  onMounted() {
     const link = document.getElementById('home-causes-link')
     // this.$segment.trackLink(link, 'Home Causes Clicked')
     this.$bus.$on('player:close', () => {

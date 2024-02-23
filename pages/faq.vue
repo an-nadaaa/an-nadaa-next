@@ -28,6 +28,7 @@
 
 <script>
 import { marked } from 'marked'
+import { onMounted } from 'vue'
 import sanitizeHtml from 'sanitize-html'
 
 export default {
@@ -46,7 +47,7 @@ export default {
 
     return { faqs }
   },
-  mounted() {
+  onMounted() {
     // this.$segment.page('FAQ')
   },
   methods: {

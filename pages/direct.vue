@@ -67,6 +67,7 @@
 </template>
 
 <script>
+import { onMounted } from 'vue';
 import { InfoCircleIcon } from 'vue-tabler-icons'
 
 export default {
@@ -90,7 +91,7 @@ export default {
       ],
     }
   },
-  mounted() {
+  onMounted() {
     // this.$segment.page('Direct Transfer')
   },
 }

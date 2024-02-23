@@ -6,6 +6,7 @@
 </template>
 
 <script>
+import { onMounted } from 'vue'
 import * as SITE_INFO from '~/content/site/info.json'
 import ContactForm from '~/components/contact/ContactForm.vue'
 import AddressSection from '~/components/contact/AddressSection.vue'
@@ -16,7 +17,7 @@ export default {
       email: SITE_INFO.contact,
     }
   },
-  mounted() {
+  onMounted() {
     // this.$segment.page('Contact')
   },
   components: { ContactForm, AddressSection },
