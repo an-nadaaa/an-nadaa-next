@@ -7,14 +7,14 @@
 
 <script>
 import { onMounted } from 'vue'
-import * as SITE_INFO from '~/content/site/info.json'
 import ContactForm from '~/components/contact/ContactForm.vue'
 import AddressSection from '~/components/contact/AddressSection.vue'
+import appConfig from '~/app.config'
 
 export default {
   data() {
     return {
-      email: SITE_INFO.contact,
+      email: appConfig.contact,
     }
   },
   onMounted() {
