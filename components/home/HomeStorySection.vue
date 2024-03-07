@@ -1,15 +1,23 @@
 <template>
   <div class="relative py-16 bg-white sm:py-24">
-    <div class="mx-auto lg:max-w-7xl lg:px-8 lg:grid lg:grid-cols-2 lg:gap-24 lg:items-start">
+    <div
+      class="mx-auto lg:max-w-7xl lg:px-8 lg:grid lg:grid-cols-2 lg:gap-24 lg:items-start"
+    >
       <div class="relative h-full sm:py-16 lg:py-0">
-        <div aria-hidden="true" class="hidden sm:block lg:absolute lg:inset-y-0 lg:right-0 lg:w-screen">
-          <div class="absolute inset-y-0 w-full right-1/2 bg-gray-50 rounded-r-3xl lg:right-72" />
+        <div
+          aria-hidden="true"
+          class="hidden sm:block lg:absolute lg:inset-y-0 lg:right-0 lg:w-screen"
+        >
+          <div
+            class="absolute inset-y-0 w-full right-1/2 bg-gray-50 rounded-r-3xl lg:right-72"
+          />
           <svg
             class="absolute -ml-3 top-8 left-1/2 lg:-right-8 lg:left-auto lg:top-12"
             width="404"
             height="392"
             fill="none"
-            viewBox="0 0 404 392">
+            viewBox="0 0 404 392"
+          >
             <defs>
               <pattern
                 id="02f20b47-fd69-4224-a62a-4c9de5c763f7"
@@ -17,19 +25,41 @@
                 y="0"
                 width="20"
                 height="20"
-                patternUnits="userSpaceOnUse">
-                <rect x="0" y="0" width="4" height="4" class="text-gray-200" fill="currentColor" />
+                patternUnits="userSpaceOnUse"
+              >
+                <rect
+                  x="0"
+                  y="0"
+                  width="4"
+                  height="4"
+                  class="text-gray-200"
+                  fill="currentColor"
+                />
               </pattern>
             </defs>
-            <rect width="404" height="392" fill="url(#02f20b47-fd69-4224-a62a-4c9de5c763f7)" />
+            <rect
+              width="404"
+              height="392"
+              fill="url(#02f20b47-fd69-4224-a62a-4c9de5c763f7)"
+            />
           </svg>
         </div>
-        <div class="relative h-full max-w-md px-4 mx-auto sm:max-w-3xl sm:px-6 lg:px-0 lg:max-w-none lg:py-20">
+        <div
+          class="relative h-full max-w-md px-4 mx-auto sm:max-w-3xl sm:px-6 lg:px-0 lg:max-w-none lg:py-20"
+        >
           <!-- Testimonial card-->
-          <div class="relative h-full pt-64 pb-10 overflow-hidden shadow-xl rounded-2xl">
-            <img class="absolute inset-0 object-cover w-full h-full" :src="images[0].url" alt="" />
+          <div
+            class="relative h-full pt-64 pb-10 overflow-hidden shadow-xl rounded-2xl"
+          >
+            <img
+              class="absolute inset-0 object-cover w-full h-full"
+              :src="images[0].url"
+              alt=""
+            />
             <div class="absolute inset-0 bg-primary-100 mix-blend-multiply" />
-            <div class="absolute inset-0 bg-gradient-to-t from-primary-700 opacity-90" />
+            <div
+              class="absolute inset-0 bg-gradient-to-t from-primary-700 opacity-90"
+            />
             <!-- <div class="relative px-8">
               <div>
                 <img class="h-48" src="https://tailwindui.com/img/logos/workcation.svg?color=white" alt="Workcation" />
@@ -63,25 +93,40 @@
         <!-- Content area -->
         <div class="pt-12 sm:pt-16 lg:pt-20">
           <h2 class="text-4xl tracking-tight text-gray-900 sm:text-5xl">
-            Through education and welfare we uplift underprivileged communities in Nigeria.
+            Through education and welfare we uplift underprivileged communities
+            in Nigeria.
           </h2>
           <div class="mt-6 space-y-6 text-gray-500">
             <p class="text-lg">
-              An-Nadaa started with the renovation of a single school building in 2014, since then it has grown into an
-              organisation that has established Awqaaf and executed many projects and is building the community through
-              Education and welfare causes.
+              An-Nadaa started with the renovation of a single school building
+              in 2014, since then it has grown into an organisation that has
+              established Awqaaf and executed many projects and is building the
+              community through Education and welfare causes.
             </p>
             <div class="text-base leading-7 prose">
-              <p>We want to leave a legacy where the Muslim communities are self sufficient in a world:</p>
+              <p>
+                We want to leave a legacy where the Muslim communities are self
+                sufficient in a world:
+              </p>
               <ul>
-                <li>where schools and universities nurture the leaders and torch bearers of the Ummah.</li>
-                <li>Where medical treatment is available/accessible for all.</li>
-                <li>Where sisters have safe and exclusive educational and medical facilities.</li>
                 <li>
-                  Where sisters are empowered to raise Muslim leaders as role models for the next generations to come.
+                  where schools and universities nurture the leaders and torch
+                  bearers of the Ummah.
                 </li>
                 <li>
-                  Where financial institutions are free from Ribaa and serve the community rather than draining it.
+                  Where medical treatment is available/accessible for all.
+                </li>
+                <li>
+                  Where sisters have safe and exclusive educational and medical
+                  facilities.
+                </li>
+                <li>
+                  Where sisters are empowered to raise Muslim leaders as role
+                  models for the next generations to come.
+                </li>
+                <li>
+                  Where financial institutions are free from Ribaa and serve the
+                  community rather than draining it.
                 </li>
               </ul>
             </div>
@@ -92,41 +137,35 @@
   </div>
 </template>
 
-<script>
-export default {
-  data() {
-    return {
-      images: [
-        {
-          url: 'https://images.unsplash.com/photo-1602938922928-5bede7cc98cc?ixid=MnwxMjA3fDB8MHxzZWFyY2h8MTd8fG5pZ2VyaWF8ZW58MHx8MHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=900&q=60',
-          alt: '',
-        },
-        {
-          url: 'https://images.unsplash.com/photo-1596788068873-9ffd5cacd4c4?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8NzN8fG5pZ2VyaWF8ZW58MHx8MHx8&auto=format&fit=crop&w=900&q=60',
-          alt: '',
-        },
-        {
-          url: 'https://images.unsplash.com/photo-1600383962708-4f28dcbce116?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1335&q=80',
-          alt: '',
-        },
-        {
-          url: 'https://images.unsplash.com/photo-1579552905294-f538096bf873?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MTk1fHxuaWdlcmlhfGVufDB8fDB8fA%3D%3D&auto=format&fit=crop&w=900&q=60',
-          alt: '',
-        },
-        {
-          url: 'https://images.unsplash.com/photo-1543335547-334c05de28c2?ixid=MnwxMjA3fDB8MHxzZWFyY2h8NjJ8fGFmcmljYXxlbnwwfHwwfHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=900&q=60',
-          alt: '',
-        },
-        {
-          url: 'https://images.unsplash.com/photo-1582125701129-8ada9192f824?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2144&q=80',
-          alt: '',
-        },
-        {
-          url: 'https://images.unsplash.com/photo-1491841550275-ad7854e35ca6?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2148&q=80',
-          alt: '',
-        },
-      ],
-    }
+<script setup lang="ts">
+const images = ref([
+  {
+    url: "https://images.unsplash.com/photo-1602938922928-5bede7cc98cc?ixid=MnwxMjA3fDB8MHxzZWFyY2h8MTd8fG5pZ2VyaWF8ZW58MHx8MHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=900&q=60",
+    alt: "",
   },
-}
+  {
+    url: "https://images.unsplash.com/photo-1596788068873-9ffd5cacd4c4?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8NzN8fG5pZ2VyaWF8ZW58MHx8MHx8&auto=format&fit=crop&w=900&q=60",
+    alt: "",
+  },
+  {
+    url: "https://images.unsplash.com/photo-1600383962708-4f28dcbce116?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1335&q=80",
+    alt: "",
+  },
+  {
+    url: "https://images.unsplash.com/photo-1579552905294-f538096bf873?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MTk1fHxuaWdlcmlhfGVufDB8fDB8fA%3D%3D&auto=format&fit=crop&w=900&q=60",
+    alt: "",
+  },
+  {
+    url: "https://images.unsplash.com/photo-1543335547-334c05de28c2?ixid=MnwxMjA3fDB8MHxzZWFyY2h8NjJ8fGFmcmljYXxlbnwwfHwwfHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=900&q=60",
+    alt: "",
+  },
+  {
+    url: "https://images.unsplash.com/photo-1582125701129-8ada9192f824?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2144&q=80",
+    alt: "",
+  },
+  {
+    url: "https://images.unsplash.com/photo-1491841550275-ad7854e35ca6?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2148&q=80",
+    alt: "",
+  },
+]);
 </script>

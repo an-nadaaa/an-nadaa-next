@@ -162,7 +162,7 @@ import {
 
 const localePath = useLocalePath();
 
-const legal = ref([
+const legal = [
   {
     title: "Privacy",
     link: "#",
@@ -175,9 +175,9 @@ const legal = ref([
   //   title: 'Licenses',
   //   link: '#',
   // },
-]);
+];
 
-const company = ref([
+const company = [
   {
     title: "About",
     link: "/about",
@@ -194,8 +194,9 @@ const company = ref([
     title: "Partners",
     link: "#",
   },
-]);
-const support = ref([
+];
+
+const support = [
   {
     title: "Contact",
     link: "/contact",
@@ -209,9 +210,9 @@ const support = ref([
     link: "https://uptime.api.an-nadaa.com/status/system",
     external: true,
   },
-]);
+];
 
-const causes = ref([
+const causes = [
   {
     title: "Donate",
     link: "/#donate",
@@ -224,8 +225,9 @@ const causes = ref([
     title: "Projects",
     link: "/causes?s=p",
   },
-]);
-const socialIcons = ref([
+];
+
+const socialIcons = [
   {
     icon: BrandTelegramIcon,
     link: "https://t.me/annadaaedu",
@@ -254,5 +256,5 @@ const socialIcons = ref([
     icon: BrandInstagramIcon,
     link: "https://instagram.com/annadaaedu",
   },
-]);
+];
 </script>
