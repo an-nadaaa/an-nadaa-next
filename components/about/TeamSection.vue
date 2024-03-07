@@ -57,19 +57,28 @@
   </div>
 </template>
 
-<script>
-import * as TEAM_SECTION from '~/content/site/about/team_section.json'
-import { onMounted } from 'vue'
+<script setup lang="ts">
+  import { onMounted } from 'vue'
 
-export default {
-  data() {
-    return {
-      teamSection: TEAM_SECTION.en,
-      people: [],
+  onMounted(async ()=>{
+    console.log(this);
+    
+    // people = await this.$content('members', this.$i18n.locale).fetch()
+  })
+</script>
+
+<script lang="ts">
+  import * as TEAM_SECTION from '~/content/site/about/team_section.json'
+  import { ref } from 'vue';
+  
+  let people = ref([]);
+  
+  export default {
+    data() {
+      return {
+        teamSection: TEAM_SECTION.en,
+        people,
+      }
     }
-  },
-  async onMounted() {
-    this.people = await this.$content('members', this.$i18n.locale).fetch()
-  },
-}
+  }
 </script>

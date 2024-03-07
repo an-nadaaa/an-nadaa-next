@@ -16,19 +16,26 @@
   </div>
 </template>
 
-<script>
-import * as CTA_SECTION from '~/content/site/about/cta_section.json'
-import { onMounted } from 'vue'
+<script setup lang="ts">
+  import { onMounted } from 'vue'
+  import { useLocalePath } from '#imports';
 
-export default {
-  data() {
-    return {
-      ctaSection: CTA_SECTION.en,
-    }
-  },
-  onMounted() {
-    const link = document.getElementById('about-cta-link')
+  let localePath = useLocalePath()
+  onMounted(()=>{
+    // const link = document.getElementById('about-cta-link')
     // this.$segment.trackLink(link, 'About CTA Clicked')
-  },
-}
+  })
+</script>
+
+<script lang="ts">
+  import * as CTA_SECTION from '~/content/site/about/cta_section.json'
+
+  export default {
+    data() {
+      return {
+        ctaSection: CTA_SECTION.en
+        // localePath: useLocalePath()
+      }
+    },
+  }
 </script>

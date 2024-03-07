@@ -46,12 +46,13 @@
   </div>
 </template>
 
-<script>
+<script setup lang="ts">
   import { onMounted } from 'vue';
-export default {
-  onMounted() {
-    const form = document.getElementById('mc-embedded-subscribe-form')
+
+  let form : HTMLElement | null;
+
+  onMounted(()=>{
+    form = document.getElementById('mc-embedded-subscribe-form')
     // analytics.trackForm(form, 'Subscribed to newsletter')
-  },
-}
+  })
 </script>
