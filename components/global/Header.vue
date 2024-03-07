@@ -34,7 +34,7 @@
             About
           </NuxtLink>
 
-          <div class="relative" v-click-outside="clickOutsideCauses">
+          <div class="relative" v-on-click-outside="clickOutsideCauses">
             <!-- Item active: "text-gray-900", Item inactive: "text-gray-500" -->
             <button
               type="button"
@@ -176,7 +176,7 @@
             </transition>
           </div>
 
-          <div class="relative" v-click-outside="clickOutsideLearn">
+          <div class="relative" v-on-click-outside="clickOutsideLearn">
             <!-- Item active: "text-gray-900", Item inactive: "text-gray-500" -->
             <button
               type="button"
@@ -500,6 +500,7 @@
 
 <script setup lang="ts">
 import { ChevronDownIcon, Menu2Icon } from "vue-tabler-icons"; // verify that this can work with vue 3 otherwise find alternatives
+import { vOnClickOutside } from "@vueuse/components";
 // import vClickOutside from "v-click-outside"; // replace this with vue use
 
 const localePath = useLocalePath();
