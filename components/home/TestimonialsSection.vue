@@ -89,8 +89,8 @@
   </div>
 </template>
 
-<script>
-import { Hooper, Slide, Navigation as HooperNavigation, Pagination as HooperPagination } from 'hooper'
+<script setup lang="ts">
+import { Hooper, Slide, Pagination as HooperPagination } from 'hooper'
 import img1 from '../../assets/img/1.png'
 import img2 from '../../assets/img/2.png'
 import img3 from '../../assets/img/3.png'
@@ -98,49 +98,49 @@ import img4 from '../../assets/img/4.png'
 import img5 from '../../assets/img/5.png'
 import img6 from '../../assets/img/6.png'
 
-export default {
-  components: {
-    Slide,
-    Hooper,
-    HooperNavigation,
-    HooperPagination,
-  },
-  props: ['testimonials'],
-  data() {
-    return {
-      images: [
-        {
-          url: img1,
-          alt: '',
-        },
-        {
-          url: img2,
-          alt: '',
-        },
-        {
-          url: img3,
-          alt: '',
-        },
-        {
-          url: img4,
-          alt: '',
-        },
-        {
-          url: img5,
-          alt: '',
-        },
-        {
-          url: img6,
-          alt: '',
-        },
-        {
-          url: img1,
-          alt: '',
-        },
-      ],
-    }
-  },
+type Testimonial = {
+  name: string
+  title: string
+  testimony: string
 }
+
+const props = defineProps({
+  testimonials: {
+    type: Array<Testimonial>,
+    required: true,
+  },
+})
+
+const images = [
+  {
+    url: img1,
+    alt: '',
+  },
+  {
+    url: img2,
+    alt: '',
+  },
+  {
+    url: img3,
+    alt: '',
+  },
+  {
+    url: img4,
+    alt: '',
+  },
+  {
+    url: img5,
+    alt: '',
+  },
+  {
+    url: img6,
+    alt: '',
+  },
+  {
+    url: img1,
+    alt: '',
+  },
+]
 </script>
 
 <style>

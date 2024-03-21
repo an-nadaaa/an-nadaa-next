@@ -66,33 +66,27 @@
   </section>
 </template>
 
-<script>
+<script setup lang="ts">
 import { onMounted } from 'vue';
 import { InfoCircleIcon } from 'vue-tabler-icons'
 
-export default {
-  components: {
-    InfoCircleIcon,
-  },
-  data() {
-    return {
-      nigeria: [
-        { id: 'bank', name: 'Bank', description: 'Bank Guaranty Trust Bank' },
-        { id: 'account-number', name: 'Acct. No', description: '0230787884' },
-        { id: 'name', name: 'Name', description: 'ANNADAA Educational Foundation' },
-        { id: 'swift-code', name: 'SWIFT Code', description: 'GTBINGLA XXX' },
-        { id: 'sort-code', name: 'Sort Code', description: '058118119' },
-      ],
-      malaysia: [
-        { id: 'bank', name: 'Bank', description: 'Maybank' },
-        { id: 'account-number', name: 'Acct. No', description: '562263544473' },
-        { id: 'name', name: 'Name', description: 'Pertubuhan An-Nadaa Malaysia' },
-        { id: 'swift-code', name: 'SWIFT Code', description: 'MBBEMYKL' },
-      ],
-    }
-  },
-  onMounted() {
-    // this.$segment.page('Direct Transfer')
-  },
-}
+const nigeria = [
+  { id: 'bank', name: 'Bank', description: 'Bank Guaranty Trust Bank' },
+  { id: 'account-number', name: 'Acct. No', description: '0230787884' },
+  { id: 'name', name: 'Name', description: 'ANNADAA Educational Foundation' },
+  { id: 'swift-code', name: 'SWIFT Code', description: 'GTBINGLA XXX' },
+  { id: 'sort-code', name: 'Sort Code', description: '058118119' },
+]
+
+const malaysia = [
+  { id: 'bank', name: 'Bank', description: 'Maybank' },
+  { id: 'account-number', name: 'Acct. No', description: '562263544473' },
+  { id: 'name', name: 'Name', description: 'Pertubuhan An-Nadaa Malaysia' },
+  { id: 'swift-code', name: 'SWIFT Code', description: 'MBBEMYKL' },
+]
+
+onMounted(() => {
+  // this.$segment.page('Direct Transfer')
+})
+
 </script>

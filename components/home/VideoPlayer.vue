@@ -16,94 +16,91 @@
   </div>
 </template>
 
-<script>
+<script setup lang="ts">
 import { PRIMARY_COLOR } from '~/config/config'
 import { XIcon } from 'vue-tabler-icons'
-import { Player, DefaultUi, Video, Youtube, Vimeo } from '@vime/vue'
+import { Player, DefaultUi } from '@vime/vue'
+import { computed, getCurrentInstance, onBeforeMount } from 'vue'
 
-export default {
-  components: {
-    Player,
-    DefaultUi,
-    Video,
-    Youtube,
-    Vimeo,
-    XIcon,
-  },
-  props: ['showPlayer', 'videoLocation'],
-  head() {
-    return {
-      link: [
-        {
-          rel: 'stylesheet',
-          href: 'https://cdn.jsdelivr.net/npm/@vime/core@^5/themes/default.css',
-        },
-        {
-          rel: 'stylesheet',
-          href: 'https://cdn.jsdelivr.net/npm/@vime/core@^5/themes/light.css',
-        },
-      ],
-    }
-  },
-  data() {
-    return {
-      videoID: '',
-      iframSrc: '',
-      provider: 'Video',
-    }
-  },
-  beforeMount() {
-    // detect what provider to use
-    const videoRegex = /\/media\/video\/.+\.mp4/
-    // regex to detect youtube urls
-    const youtubeRegex =
-      /^((?:https?:)?\/\/)?((?:www|m)\.)?((?:youtube(-nocookie)?\.com|youtu.be))(\/(?:[\w\-]+\?v=|embed\/|v\/)?)([\w\-]+)(\S+)?$/
-    // regex to detect vimeo urls
-    const vimeoRegex =
-      /https?:\/\/(?:www\.|player\.)?vimeo.com\/(?:channels\/(?:\w+\/)?|groups\/([^\/]*)\/videos\/|album\/(\d+)\/video\/|video\/|)(\d+)(?:$|\/|\?)/
+const app = getCurrentInstance()
 
-    if (videoRegex.test(this.videoLocation)) {
-      this.provider = 'Video'
-    } else if (youtubeRegex.test(this.videoLocation)) {
-      this.provider = 'Youtube'
-      // capture the video id from the regex
-      this.videoID = this.videoLocation.match(youtubeRegex)[6]
-    } else if (vimeoRegex.test(this.videoLocation)) {
-      this.provider = 'Vimeo'
-      // capture the video id from the regex
-      this.videoID = this.videoLocation.match(vimeoRegex)[3]
-    }
+const props = defineProps({
+  showPlayer: {
+    type: Boolean,
+    required: true,
   },
-  methods: {
-    closePlayer() {
-      // hide when event is fired
-      this.player.pause()
-      this.$bus.$emit('player:close')
-    },
+  videoLocation: {
+    type: String,
+    required: true,
   },
-  watch: {
-    showPlayer: {
-      async handler(val) {
-        if (val) {
-          // const canAutoplay = await this.player.canAutoplay()
-          // if (!canAutoplay) {
-          //   this.player.play()
-          // }
-        }
-      },
-      immediate: true,
-    },
-  },
-  computed: {
-    player() {
-      return this.$refs.player
-    },
-    styles() {
-      // return the primary color from tailwind config injected :style="`--vm-player-theme: #${primaryColor};`"
-      return {
-        '--vm-player-theme': PRIMARY_COLOR[500],
-      }
-    },
-  },
+})
+
+const videoID = ref('')
+const provider = ref('Video')
+const iframSrc = ref('')
+
+function closePlayer() {
+  // hide when event is fired
+  this.player.pause()
+  this.$bus.$emit('player:close')
 }
+
+watch(() => props.showPlayer, (val) => {
+  if (val) {
+    // const canAutoplay = await this.player.canAutoplay()
+    // if (!canAutoplay) {
+    //   this.player.play()
+    // }
+  }}
+, { immediate: true });
+
+const player = computed(() => {
+  return app?.refs.player
+})
+
+const styles = computed(() => {
+  return {
+    '--vm-player-theme': PRIMARY_COLOR[500],
+  }
+})
+
+onBeforeMount(() => {
+  // detect what provider to use
+  const videoRegex = /\/media\/video\/.+\.mp4/
+  // regex to detect youtube urls
+  const youtubeRegex =
+    /^((?:https?:)?\/\/)?((?:www|m)\.)?((?:youtube(-nocookie)?\.com|youtu.be))(\/(?:[\w\-]+\?v=|embed\/|v\/)?)([\w\-]+)(\S+)?$/
+  // regex to detect vimeo urls
+  const vimeoRegex =
+    /https?:\/\/(?:www\.|player\.)?vimeo.com\/(?:channels\/(?:\w+\/)?|groups\/([^\/]*)\/videos\/|album\/(\d+)\/video\/|video\/|)(\d+)(?:$|\/|\?)/
+
+  if (videoRegex.test(props.videoLocation)) {
+    provider.value = 'Video'
+  } else if (youtubeRegex.test(props.videoLocation)) {
+    provider.value = 'Youtube'
+    // capture the video id from the regex
+    if (props.videoLocation.match(youtubeRegex)) {
+      videoID.value = (props.videoLocation.match(youtubeRegex) as RegExpMatchArray)[6]
+    }
+  } else if (vimeoRegex.test(props.videoLocation)) {
+    provider.value = 'Vimeo'
+    // capture the video id from the regex
+    if(props.videoLocation.match(vimeoRegex)){
+      videoID.value = (props.videoLocation.match(vimeoRegex) as RegExpMatchArray)[3]
+    }
+  }
+})
+
+useHead({
+  link: [
+    {
+      rel: 'stylesheet',
+      href: 'https://cdn.jsdelivr.net/npm/@vime/core@^5/themes/default.css',
+    },
+    {
+      rel: 'stylesheet',
+      href: 'https://cdn.jsdelivr.net/npm/@vime/core@^5/themes/light.css',
+    },
+  ],
+})
 </script>

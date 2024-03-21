@@ -88,20 +88,20 @@
   </div>
 </template>
 
-<script>
+<script setup lang="ts">
 import { CameraIcon } from 'vue-tabler-icons'
 import * as SHAYKH_SECTION from '~/content/site/about/shaykh_section.json'
 import { marked } from 'marked'
 import sanitizeHtml from 'sanitize-html'
 
-export default {
-  components: {
-    CameraIcon,
-  },
-  data() {
-    return {
-      shaykhSection: SHAYKH_SECTION.en,
-      shaykhBio: `<p className="lead">
+const shaykhSection = {
+    "imageUrl": "https://an-nadaa-media.s3.us-west-004.backblazeb2.com/website/photo_2022-03-17_13-50-53.jpg",
+    "title": "Founder (Nigeria) & Deputy Chairman (Malaysia)",
+    "subtitle": "Meet Sheikh Ibrahim Nuhu",
+    "description": "Sheikh Ibrahim Nuhu is an Associate Professor at the Dept of Economics at the International Islamic University Malaysia. As a child, he was traditionally trained under his father and other local scholars in the Maliki Fiqh. He started off his teaching career as the headmaster of Raudatul Qur’an School in Nigeria. He was then accepted into the International Islamic University, Madinah. He graduated from the Dept of Shariah at the top of his class with his Bachelors in Shariah and Islamic Studies. He then followed that up with a Postgraduate Diploma (first class of honours) in Islamic Law and Islamic Political Science from the same university only to pursue and complete his Masters and PhD in Shariah and Civil Laws at the International Islamic University Malaysia. Sheikh Ibrahim is an advisor and speaker for many Muslim student bodies in Universities all across Malaysia, delivering hundreds of Islamic lectures and Dawah programs. He is well known for conducting free weekly classes ranging from Aqeedah, Fiqh, Tafseer, Usool and others, which are attended by many students and lecturers. Currently he is the Director and Founder of An-Nadaa Educational Foundation which is working to alleviate the difficulties and fulfill the needs of poor Muslims in Nigeria and elevate them with education."
+  } 
+
+const shaykhBio =       `<p className="lead">
   Dr. Ibrahim Nuhu Tahir is the founder of An-Nadaa Educational Foundation. He personally supervises and monitors all the activities of the foundation to ensure that they are in line with the rules of Allah, objectives of the organization and maximise the benefit for the community. All this while also ensuring the rights of the donors, partners and beneficiaries are not violated in any way.
 </p>
 
@@ -113,13 +113,9 @@ He was then accepted into the International Islamic University, Madinah. He grad
 ### Malaysia
 He then went on to complete his masters and PhD from Islamic International University of Malaysia. While he was doing his PhD he was also a teacher and the head of Islamic department in the International Islamic School Malaysia. After completing his PhD sheikh was invited to join the department of Economics and Management Sciences where he is now an associate professor. He is also a research fellow at the Center for Islamic Economics.
 ### Youth Empowerment
-Sheikh Ibrahim allots a lot of his free time, and many times sacrifices his own family time, to engage with youth and spread the knowledge and the tarbiyyah of the deen. He conducts classes in Fiqh, Seerah, Akhlaaq, Tafseer, Faraid, essential knowledge for new muslims. Sheikh Ibrahim also holds advisory roles with many organisations and student bodies. With his deep knowledge coupled with extreme humility, Sheikh Ibrahim has significantly single-handedly developed Islam in the lives of hundreds if not thousands of Muslim youth.`,
-    }
-  },
-  methods: {
-    prosefy(content) {
-      return sanitizeHtml(marked.parse(content))
-    },
-  },
+Sheikh Ibrahim allots a lot of his free time, and many times sacrifices his own family time, to engage with youth and spread the knowledge and the tarbiyyah of the deen. He conducts classes in Fiqh, Seerah, Akhlaaq, Tafseer, Faraid, essential knowledge for new muslims. Sheikh Ibrahim also holds advisory roles with many organisations and student bodies. With his deep knowledge coupled with extreme humility, Sheikh Ibrahim has significantly single-handedly developed Islam in the lives of hundreds if not thousands of Muslim youth.`
+
+function prosefy(content: any) {
+  return sanitizeHtml(marked.parse(content))
 }
 </script>

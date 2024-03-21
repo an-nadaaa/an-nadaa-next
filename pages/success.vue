@@ -28,13 +28,15 @@
   </div>
 </template>
 
-<script>
+<script setup lang="ts">
 import { onMounted } from 'vue';
+import { useLocalePath } from '@nuxtjs/i18n/dist/runtime/composables';
 
-export default {
-  onMounted() {
-    // this.$segment.track('Donation Complete')
-    // this.$segment.page('Jazakoum Allahou Khayran')
-  },
-}
+const localePath = useLocalePath();
+
+onMounted(()=>{
+  // this.$segment.track('Donation Complete')
+  // this.$segment.page('Jazakoum Allahou Khayran')
+
+})
 </script>

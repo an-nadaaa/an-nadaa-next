@@ -69,14 +69,12 @@
     </div>
   </div>
 </template>
-<script>
-import * as STORY_SECTION from '~/content/site/about/story_section.json'
 
-export default {
-  data() {
-    return {
-      storySection: STORY_SECTION.en,
-    }
-  },
+<script setup lang="ts">
+const storySection = {
+  "title": "Our story",
+  "subtitle": "We are just getting started",
+  "description1": "Ultrices ultricies a in odio consequat egestas rutrum. Ut vitae aliquam in ipsum. Duis nullam placerat cursus risus ultrices nisi, Ultrices ultricies a in odio consequat egestas rutrum. Ut vitae aliquam in ipsum. Duis nullam placerat cursus risus ultrices nisi.",
+  "description2": "Ultrices ultricies a in odio consequat egestas rutrum. Ut vitae aliquam in ipsum. Duis nullam placerat cursus risus ultrices nisi, Ultrices ultricies a in odio consequat egestas rutrum. Ut vitae aliquam in ipsum. Duis nullam placerat cursus risus ultrices nisi."
 }
 </script>

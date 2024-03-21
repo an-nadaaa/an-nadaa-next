@@ -31,40 +31,30 @@
   </div>
 </template>
 
-<script>
+<script setup lang="ts">
 import { BookIcon, LockAccessIcon, UserPlusIcon } from 'vue-tabler-icons'
-import * as VALUE_SECTION from '~/content/site/about/value_section.json'
 
-export default {
-  components: {
-    LockAccessIcon,
-    BookIcon,
-    UserPlusIcon,
+const valueSection = {
+    "title": "Our values",
+    "subtitle": " What we stand for and believe in ",
+    "description": "Sacrificing part of one's wealth and giving it in charity, the individual is guaranteeing protection for themselves from tragedy and misfortune."
+  }
+
+const features = [
+  {
+    icon: LockAccessIcon,
+    title: 'Amanah',
+    description: 'Amanah (Trustworthiness) in every step of what we do',
   },
-  data() {
-    return {
-      valueSection: VALUE_SECTION.en,
-      features: [
-        {
-          icon: LockAccessIcon,
-          title: 'Amanah',
-          description: 'Amanah (Trustworthiness) in every step of what we do',
-        },
-        {
-          icon: BookIcon,
-          title: 'Tarbiyah',
-          description: 'Tarbiyyah of the community through the pure teachings of quran & Sunnah',
-        },
-        {
-          icon: UserPlusIcon,
-          title: 'Community',
-          description: 'Community empowerment through self sufficiency.',
-        },
-      ],
-    }
+  {
+    icon: BookIcon,
+    title: 'Tarbiyah',
+    description: 'Tarbiyyah of the community through the pure teachings of quran & Sunnah',
   },
-  async mounted() {
-    // this.features = await this.$content('values', this.$i18n.locale).fetch()
+  {
+    icon: UserPlusIcon,
+    title: 'Community',
+    description: 'Community empowerment through self sufficiency.',
   },
-}
+]
 </script>

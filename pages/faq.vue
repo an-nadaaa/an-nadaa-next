@@ -26,48 +26,54 @@
   </section>
 </template>
 
-<script>
+<script setup lang="ts">
 import { marked } from 'marked'
 import { onMounted } from 'vue'
 import sanitizeHtml from 'sanitize-html'
 
-export default {
-  async asyncData({ $content, error, app }) {
+onMounted(() => {
+  // this.$segment.page('FAQ')
+})
+
+function answer(i: any) {
+  return sanitizeHtml(marked(this.faqs[i].answer))
+}
+
+useHead({
+  title: 'Frequently asked questions | An-nadaa educational foundation',
+  meta: [
+    {
+      hid: 'description',
+      name: 'description',
+      content:
+        'Frequently asked questions addresses the most common questions asked for our educational foundation',
+    },
+  ],
+})
+
+async ()=>{
+  return 0
+}
+
+let faqs: any;
+
+// todo: $content, error and app does not exist on NuxtApp
+await useAsyncData(
+  'faq',
+  async ({ $content, error, app }) => {
     const sortBy = {
       key: 'date',
       direction: 'dec',
     }
 
-    const faqs = await $content('faq', app.i18n.locale)
+    faqs = await $content('faq', app.i18n.locale)
       .sortBy(sortBy.key, sortBy.direction)
       .fetch()
-      .catch((err) => {
+      .catch((err: any) => {
         error({ statusCode: 404, message: 'No FAQs to display' })
       })
 
     return { faqs }
-  },
-  onMounted() {
-    // this.$segment.page('FAQ')
-  },
-  methods: {
-    answer(i) {
-      return sanitizeHtml(marked(this.faqs[i].answer))
-    },
-  },
-  // addresses the most common questions
-  head() {
-    return {
-      title: 'Frequently asked questions | An-nadaa educational foundation',
-      meta: [
-        {
-          hid: 'description',
-          name: 'description',
-          content:
-            'Frequently asked questions addresses the most common questions asked for our educational foundation',
-        },
-      ],
-    }
-  },
-}
+  }
+)
 </script>

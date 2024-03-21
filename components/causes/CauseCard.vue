@@ -75,7 +75,7 @@
   </NuxtLink>
 </template>
 
-<script>
+<script setup lang="ts">
 import { CURRENCY_NAME } from '@/config/config'
 import { InfoCircleIcon } from 'vue-tabler-icons'
 import { onMounted } from 'vue'
@@ -83,38 +83,36 @@ import 'tippy.js/themes/light.css'
 import 'tippy.js/themes/light-border.css'
 import 'tippy.js/themes/google.css'
 import 'tippy.js/themes/translucent.css'
+import { computed } from 'vue'
+import { useLocalePath } from '@nuxtjs/i18n/dist/runtime/composables'
 
-export default {
-  components: {
-    InfoCircleIcon,
+const localePath = useLocalePath();
+
+const props = defineProps({
+  cause: {
+    required: true,
+    type: Object,
   },
-  props: {
-    cause: {
-      require: true,
-      type: Object,
-    },
-  },
-  onMounted() {
-    const link = document.getElementById(`cause-link-${this.cause.id}`)
+})
+
+onMounted(()=>{
+    // const link = document.getElementById(`cause-link-${this.cause.id}`)
     // this.$segment.trackLink(link, 'Cause Clicked', {
     //   title: this.cause.attributes.title,
     //   causeID: this.cause.id,
     // })
-  },
-  methods: {
-    formateAmount(amount) {
-      return new Intl.NumberFormat(this.$i18n.locale, {
-        style: 'currency',
-        currency: CURRENCY_NAME,
-      }).format(amount)
-    },
-  },
-  computed: {
-    percentage() {
-      return this.cause.attributes.dynamicZone[0].goal
-        ? (this.cause.attributes.dynamicZone[0].raised * 100) / this.cause.attributes.dynamicZone[0].goal
-        : 0
-    },
-  },
+  })
+
+function formateAmount(amount: number) {
+  return new Intl.NumberFormat('en-US', {
+    style: 'currency',
+    currency: CURRENCY_NAME,
+  }).format(amount)
 }
+
+const percentage = computed(() => {
+  return props?.cause?.attributes.dynamicZone[0].goal
+    ? (props?.cause.attributes.dynamicZone[0].raised * 100) / props.cause.attributes.dynamicZone[0].goal
+    : 0
+})
 </script>

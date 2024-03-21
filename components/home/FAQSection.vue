@@ -32,33 +32,34 @@
   </div>
 </template>
 
-<script>
-import { CirclePlusIcon, CircleMinusIcon } from 'vue-tabler-icons'
+<script setup lang="ts">
 import { marked } from 'marked'
 import sanitizeHtml from 'sanitize-html'
 
-export default {
-  components: {
-    CirclePlusIcon,
-    CircleMinusIcon,
+type FAQ = {
+  question: string
+  answer: string
+}
+
+const props = defineProps({
+  faqs: {
+    type: Array<FAQ>,
+    required: true,
   },
-  props: ['faqs'],
-  data() {
-    return {
-      current: 0,
-    }
-  },
-  methods: {
-    switchIndex(i) {
-      this.current = i
-      // this.$segment.track('FAQ clicked', { q: this.faqs[i].question })
-    },
-    currentIndex(i) {
-      return i === this.current
-    },
-    answer(i) {
-      return sanitizeHtml(marked.parse(this.faqs[i].answer))
-    },
-  },
+})
+
+const current = ref(0)
+
+const switchIndex = (i: number) => {
+  current.value = i
+  // this.$segment.track('FAQ clicked', { q: this.faqs[i].question })
+}
+
+const currentIndex = (i: number) => {
+  return i === current.value
+}
+
+const answer = (i: number) => {
+  return sanitizeHtml(marked.parse(props.faqs[i].answer))
 }
 </script>

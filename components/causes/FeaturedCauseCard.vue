@@ -1,7 +1,7 @@
 <template>
   <NuxtLink
-    :id="`featured-cause-link-${cause.id}`"
-    :to="localePath(`/causes/${cause.id}`)"
+    :id="`featured-cause-link-${cause?.id}`"
+    :to="localePath(`/causes/${cause?.id}`)"
     :class="`cursor-pointer relative bg-white ${index !== 2 ? 'pt-16' : ''}`">
     <div
       v-if="index !== 2"
@@ -32,7 +32,7 @@
       <div class="relative flex flex-col justify-end h-full pt-64 pb-10 overflow-hidden shadow-xl rounded-2xl">
         <img
           class="absolute inset-0 object-cover w-full h-full"
-          v-if="cause.attributes.cover.data.attributes.url"
+          v-if="cause?.attributes.cover.data.attributes.url"
           :src="cause.attributes.cover.data.attributes.url"
           alt="Cover image" />
         <div class="absolute inset-0 bg-primary-600 opacity-20 mix-blend-multiply" />
@@ -40,7 +40,7 @@
         <div class="relative px-8 pb-10">
           <div>
             <span
-              v-for="(tag, i) in cause.attributes.tags.data"
+              v-for="(tag, i) in cause?.attributes.tags.data"
               :key="i"
               :class="`inline-flex items-center px-2.5 py-0.5 rounded-md text-sm font-medium bg-primary-100 text-primary-800  ${
                 i === 0 ? '' : 'ltr:mr-4 rtl:ml-4 mx-2'
@@ -49,11 +49,11 @@
             </span>
           </div>
           <div :class="`mt-3 text-xl font-semibold text-white  ${index === 0 ? 'lg:text-5xl' : 'lg:text-3xl'}`">
-            {{ cause.attributes.title }}
+            {{ cause?.attributes.title }}
           </div>
           <section class="mt-8">
             <div
-              v-if="cause.attributes.dynamicZone[0].goal && cause.attributes.dynamicZone[0].goal !== 0"
+              v-if="cause?.attributes.dynamicZone[0].goal && cause.attributes.dynamicZone[0].goal !== 0"
               class="h-2 my-3 overflow-hidden bg-gray-200 rounded-full">
               <div class="h-2 bg-yellow-400 rounded-full" :style="`width: ${percentage}%`"></div>
             </div>
@@ -68,13 +68,13 @@
 
             <div class="relative text-lg font-medium text-white md:flex-grow">
               <p class="relative line-clamp-4">
-                {{ cause.attributes.description }}
+                {{ cause?.attributes.description }}
               </p>
             </div>
 
             <footer class="mt-4">
               <p
-                v-if="cause.attributes.dynamicZone[0].goal && cause.attributes.dynamicZone[0].goal !== 0"
+                v-if="cause?.attributes.dynamicZone[0].goal && cause.attributes.dynamicZone[0].goal !== 0"
                 class="text-base text-primary-200">
                 <span class="font-semibold text-primary-50">
                   {{ formateAmount(cause.attributes.dynamicZone[0].raised) }}
@@ -82,7 +82,7 @@
                 <span> of </span>
                 <span> {{ formateAmount(cause.attributes.dynamicZone[0].goal) }} Raised </span>
               </p>
-              <div v-else-if="cause.attributes.dynamicZone[0].donation" class="font-semibold text-primary-50">
+              <div v-else-if="cause?.attributes.dynamicZone[0].donation" class="font-semibold text-primary-50">
                 <span
                   >Cost of {{ cause.attributes.dynamicZone[0].donation.action }}
                   {{ cause.attributes.dynamicZone[0].donation.value }}
@@ -102,50 +102,47 @@
   </NuxtLink>
 </template>
 
-<script>
+<script setup lang="ts">
 import { CURRENCY_NAME } from '@/config/config'
 import { InfoCircleIcon } from 'vue-tabler-icons'
-import { onMounted } from 'vue'
+import { onMounted, computed } from 'vue'
+import { useLocalePath } from '@nuxtjs/i18n/dist/runtime/composables'
 import 'tippy.js/themes/light.css'
 import 'tippy.js/themes/light-border.css'
 import 'tippy.js/themes/google.css'
 import 'tippy.js/themes/translucent.css'
 
-export default {
-  components: {
-    InfoCircleIcon,
+const localePath = useLocalePath()
+
+const props = defineProps({
+  cause: {
+    require: true,
+    type: Object,
   },
-  props: {
-    cause: {
-      require: true,
-      type: Object,
-    },
-    index: {
-      require: true,
-      type: Number,
-    },
+  index: {
+    require: true,
+    type: Number,
   },
-  onMounted() {
-    const link = document.getElementById(`featured-cause-link-${this.cause.id}`)
+})
+
+onMounted(()=>{
+  // const link = document.getElementById(`featured-cause-link-${props.cause?.id}`)
     // this.$segment.trackLink(link, 'Featured Cause Clicked', {
     //   title: this.cause.attributes.title,
     //   causeID: this.cause.id,
     // })
-  },
-  methods: {
-    formateAmount(amount) {
-      return new Intl.NumberFormat(this.$i18n.locale, {
-        style: 'currency',
-        currency: CURRENCY_NAME,
-      }).format(amount)
-    },
-  },
-  computed: {
-    percentage() {
-      return this.cause.attributes.dynamicZone[0].goal
-        ? (this.cause.attributes.dynamicZone[0].raised * 100) / this.cause.attributes.dynamicZone[0].goal
-        : 0
-    },
-  },
+})
+
+function formateAmount(amount: number) {
+  return new Intl.NumberFormat(this.$i18n.locale, {
+    style: 'currency',
+    currency: CURRENCY_NAME,
+  }).format(amount)
 }
+
+const percentage = computed(()=>{
+  return props.cause?.attributes.dynamicZone[0].goal
+    ? (props.cause.attributes.dynamicZone[0].raised * 100) / props.cause.attributes.dynamicZone[0].goal
+    : 0
+})
 </script>

@@ -79,14 +79,11 @@
   </div>
 </template>
 
-<script>
-import * as STATEMENT_SECTION from '~/content/site/about/statement_section.json'
-
-export default {
-  data() {
-    return {
-      statementSection: STATEMENT_SECTION.en,
-    }
-  },
-}
+<script setup lang="ts">
+  const statementSection = {
+    "title": "How it starts",
+    "subtitle": "A simple way to",
+    "goal": "lift others",
+    "description": "We make it easier to you to help other muslim brothers in Nigeria, wherever you are, which will maks you achieve a greater sense of satisfaction and growth as it feels good to help others and provide them with all the essential resources, especially from an islamic point of view."
+  }
 </script>

@@ -25,17 +25,11 @@
     // const link = document.getElementById('about-cta-link')
     // this.$segment.trackLink(link, 'About CTA Clicked')
   })
-</script>
 
-<script lang="ts">
-  import * as CTA_SECTION from '~/content/site/about/cta_section.json'
-
-  export default {
-    data() {
-      return {
-        ctaSection: CTA_SECTION.en
-        // localePath: useLocalePath()
-      }
-    },
-  }
+  const ctaSection = {
+    "title": "Start changing lives Today. Make a lasting impact.",
+    "subtitle": "We have many causes that are always open for contributions.",
+    "btnText": "Explore more",
+    "btnUrl": "/causes"
+  };
 </script>

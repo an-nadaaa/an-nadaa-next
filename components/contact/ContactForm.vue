@@ -160,18 +160,14 @@
   </div>
 </template>
 
-<script>
+<script setup lang="ts">
 import { onMounted } from 'vue';
 
-export default {
-  data() {
-    return {
-      email: 'b9a6d9877fa1aca555140617b2ec027b',
-    }
-  },
-  onMounted() {
-    const form = document.getElementById('contact-form')
-    // analytics.trackForm(form, 'Contacted Us')
-  },
-}
+const email = 'b9a6d9877fa1aca555140617b2ec027b';
+
+onMounted(() => {
+  // const form = document.getElementById('contact-form');
+  // analytics.trackForm(form, 'Contacted Us');
+});
+
 </script>

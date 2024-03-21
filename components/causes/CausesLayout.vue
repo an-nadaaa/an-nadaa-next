@@ -426,95 +426,102 @@
   </div>
 </template>
 
-<script>
+<script setup lang="ts">
 import { XIcon, ChevronDownIcon, PlusIcon, MinusIcon, LayoutGridIcon, FilterIcon } from 'vue-tabler-icons'
 import { onMounted } from 'vue'
 import BounceLoader from 'vue-spinner/src/BounceLoader.vue'
 import qs from 'qs'
+import { ref } from 'vue'
+import { computed, watch } from 'vue'
+
 
 const PAGINATION_SIZE = 12
 const STRAPI_API = process.env.NODE_ENV === 'production' ? process.env.STRAPI_API : 'http://localhost:5000/api'
 
-export default {
-  components: {
-    XIcon,
-    ChevronDownIcon,
-    PlusIcon,
-    MinusIcon,
-    LayoutGridIcon,
-    FilterIcon,
-    BounceLoader,
+type Tag = {
+  attributes: {
+    value: string
   },
-  props: {
-    tags: {
-      required: true,
-      type: Array,
-    },
-    categories: {
-      required: true,
-      type: Array,
-    },
-    initialCauses: {
-      required: false,
-      type: Array,
-      default: () => [],
-    },
-    initialPaginationData: {
-      required: false,
-      type: Object,
-      default: () => ({
-        page: 1,
-        pageSize: PAGINATION_SIZE,
-        pageCount: 1,
-        total: 0,
-      }),
-    },
+  id: string
+}
+
+type Category = {
+  attributes: {
+    value: string
   },
-  data() {
-    return {
-      tabs: ['All', 'Campaigns', 'Projects'],
-      currentTab: 'All',
-      sortFilters: [
-        {
-          text: 'Featured',
-          filter: 'featured:desc',
-        },
-        {
-          text: 'Newest',
-          filter: 'createdAt:desc',
-        },
-        // 'Impact',
-        // 'Minimum Donation'
-      ],
-      sortFilterSelected: 0,
-      tagsSelected: [],
-      categoriesSelected: [],
-      expandTags: false,
-      expandCategories: false,
-      showMenu: false,
-      showSortMenu: false,
-      loading: true,
-      cards: [],
-      paginationData: {},
-      paginationQuery: {
-        page: 1,
-        pageSize: PAGINATION_SIZE,
-        withCount: true,
-      },
-      QUERY_SIZE: PAGINATION_SIZE,
-    }
+  id: string
+}
+
+const props = defineProps({
+  tags: {
+    required: true,
+    type: Array<Tag>,
   },
-  onMounted() {
-    this.loading = true
-    this.cards = this.initialCauses
-    this.paginationData = this.initialPaginationData
-    this.loading = false
+  categories: {
+    required: true,
+    type: Array<Category>,
   },
-  methods: {
-    selectedTab(tab) {
-      return this.currentTab === tab
-    },
-    selectTab(tab) {
+  initialCauses: {
+    required: false,
+    type: Array,
+    default: () => [],
+  },
+  initialPaginationData: {
+    required: false,
+    type: Object,
+    default: () => ({
+      page: 1,
+      pageSize: PAGINATION_SIZE,
+      pageCount: 1,
+      total: 0,
+    }),
+  },
+})
+
+// const tabs = ['All', 'Campaigns', 'Projects']
+// const currentTab = 'All'
+
+const tabs = ref(['All', 'Campaigns', 'Projects']);
+const currentTab = ref('All');
+const sortFilters = ref([
+  {
+    text: 'Featured',
+    filter: 'featured:desc',
+  },
+  {
+    text: 'Newest',
+    filter: 'createdAt:desc',
+  },
+]);
+const sortFilterSelected = ref(0);
+const tagsSelected = ref<Array<any>>([]);
+const categoriesSelected = ref([]);
+const expandTags = ref(false);
+const expandCategories = ref(false);
+const showMenu = ref(false);
+const showSortMenu = ref(false);
+const loading = ref(true);
+const cards = ref<Array<any>>([]);
+const paginationData = ref<Record<string, any>>({});
+const paginationQuery = ref({
+  page: 1,
+  pageSize: PAGINATION_SIZE,
+  withCount: true,
+});
+const QUERY_SIZE = ref(PAGINATION_SIZE);
+
+onMounted(()=>{
+  loading.value = true
+  cards.value = props.initialCauses
+  paginationData.value = props.initialPaginationData
+  loading.value = false
+})
+
+function selectedTab(tab:any) {
+  return currentTab.value === tab
+}
+
+function selectTab(tab:any) {
       this.$router.replace(
         this.localeLocation({
           path: '/causes',
@@ -523,41 +530,45 @@ export default {
           },
         })
       )
-    },
-    async populateCards() {
-      this.loading = true
-      const that = this
-      await this.$axios
-        .$get(`${STRAPI_API}/causes?locale=${this.$i18n.locale}&${this.query}`, {
-          headers: {
-            'Content-Type': 'application/json',
-            Authorization: `Bearer ${process.env.STRAPI_API_KEY}`,
-          },
-        })
-        .then(({ data, meta }) => {
-          that.cards = data
-          that.paginationData = meta.pagination
-        })
-      this.loading = false
-    },
-    async nextPage() {
-      this.paginationQuery.page = this.paginationData.page + 1
-      await this.populateCards()
-    },
-    async prevPage() {
-      this.paginationQuery.page = this.paginationData.page - 1
-      await this.populateCards()
-    },
-  },
-  computed: {
-    hasPrev() {
-      return this.paginationData.page > 1
-    },
-    hasNext() {
-      return this.paginationData.page < this.paginationData.pageCount
-    },
-    query() {
-      return qs.stringify(
+    }
+
+async function populateCards() {
+  this.loading = true
+  const that = this
+  await this.$axios
+    .$get(`${STRAPI_API}/causes?locale=${this.$i18n.locale}&${this.query}`, {
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${process.env.STRAPI_API_KEY}`,
+      },
+    })
+    .then(({ data, meta }: {data:any, meta: any}) => {
+      that.cards = data
+      that.paginationData = meta.pagination
+    })
+  this.loading = false
+}
+
+async function nextPage() {
+  this.paginationQuery.page = this.paginationData.page + 1
+  await populateCards()
+}
+
+async function prevPage() {
+  this.paginationQuery.page = this.paginationData.page - 1
+  await populateCards()
+}
+
+const hasPrev = computed(()=>{
+  return paginationData.value.page > 1
+})
+
+const hasNext = computed(()=>{
+  return paginationData.value.page < paginationData.value.pageCount
+})
+
+const query = computed(()=>{
+  return qs.stringify(
         {
           populate: {
             dynamicZone: {
@@ -599,74 +610,69 @@ export default {
             //     }
             //   : {}),
             // conditionally add tags filter if there are any selected
-            ...(this.tagsSelected.length > 0
+            ...(tagsSelected.value.length > 0
               ? {
                   tags: {
                     value: {
-                      $in: this.tagsSelected.map((tag) => tag.attributes.value),
+                      $in: tagsSelected.value.map((tag) => tag.attributes.value),
                     },
                   },
                 }
               : {}),
             // conditionally add categories filter if there are any selected
-            ...(this.categoriesSelected.length > 0
+            ...(categoriesSelected.value.length > 0
               ? {
                   category: {
                     value: {
-                      $in: this.categoriesSelected.map((category) => category.attributes.value),
+                      $in: categoriesSelected.value.map((category:any) => category.attributes.value),
                     },
                   },
                 }
               : {}),
           },
-          sort: [this.sortFilters[this.sortFilterSelected].filter, 'createdAt:desc'],
-          pagination: this.paginationQuery,
+          sort: [sortFilters.value[sortFilterSelected.value].filter, 'createdAt:desc'],
+          pagination: paginationQuery.value,
         },
         {
           encodeValuesOnly: true,
         }
       )
-    },
-  },
-  watch: {
-    $route: {
-      handler() {
-        switch (this.$route.query.s) {
-          case 'c':
-            this.currentTab = 'Campaigns'
-            break
-          case 'p':
-            this.currentTab = 'Projects'
-            break
-          default:
-            this.currentTab = 'All'
-            break
-        }
-      },
-      immediate: true,
-    },
-    async currentTab(v) {
-      // this.$segment.track('Tab Selected', { tab: v })
-      await this.populateCards()
-    },
-    async sortFilterSelected(v) {
-      // this.$segment.track('Sort Filter Selected', {
-      //   filter: v,
-      // })
-      await this.populateCards()
-    },
-    async tagsSelected(v) {
-      // this.$segment.track('Tags Selected', {
-      //   tags: v,
-      // })
-      await this.populateCards()
-    },
-    async categoriesSelected(v) {
-      // this.$segment.track('Categories Selected', {
-      //   categories: v,
-      // })
-      await this.populateCards()
-    },
-  },
-}
+})
+
+watch(currentTab, async ()=>{
+  await populateCards()
+})
+
+watch(sortFilterSelected, async ()=>{
+  await populateCards()
+})
+
+watch(tagsSelected, async ()=>{
+  await populateCards()
+})
+
+watch(categoriesSelected, async ()=>{
+  await populateCards()
+})
+
+// export default {
+//   watch: {
+//     $route: {
+//       handler() {
+//         switch (this.$route.query.s) {
+//           case 'c':
+//             this.currentTab = 'Campaigns'
+//             break
+//           case 'p':
+//             this.currentTab = 'Projects'
+//             break
+//           default:
+//             this.currentTab = 'All'
+//             break
+//         }
+//       },
+//       immediate: true,
+//     },
+//   },
+// }
 </script>

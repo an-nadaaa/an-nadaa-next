@@ -34,34 +34,24 @@
   </section>
 </template>
 <script>
-import HERO_CONTENT from '~/content/site/home/hero_section.json'
 import { PlayerPlayIcon } from 'vue-tabler-icons'
 import { onMounted } from 'vue'
 import bg from '../../assets/img/Sectionhero.png'
 
-export default {
-  components: {
-    PlayerPlayIcon,
-  },
-  data() {
-    return {
-      bgUrl: bg,
-      videoLocation: HERO_CONTENT['en'].location,
-      showPlayer: false,
-    }
-  },
-  onMounted() {
-    const link = document.getElementById('home-causes-link')
-    // this.$segment.trackLink(link, 'Home Causes Clicked')
-    this.$bus.$on('player:close', () => {
-      this.showPlayer = false
-    })
-  },
-  methods: {
-    showVideoPlayer() {
-      this.showPlayer = true
-      // this.$segment.track('Home Video Played')
-    },
-  },
+const bgUrl = bg
+const videoLocation = "/media/video/What-Is-An-nadaa.mp4"
+const showPlayer = ref(false)
+
+function showVideoPlayer() {
+  showPlayer.value = true
+  // this.$segment.track('Home Video Played')
 }
+
+onMounted(()=>{
+  const link = document.getElementById('home-causes-link')
+  // this.$segment.trackLink(link, 'Home Causes Clicked')
+  this.$bus.$on('player:close', () => {
+    showPlayer.value = false
+  })
+})
 </script>
