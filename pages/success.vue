@@ -29,8 +29,7 @@
 </template>
 
 <script setup lang="ts">
-import { onMounted } from 'vue';
-import { useLocalePath } from '@nuxtjs/i18n/dist/runtime/composables';
+import { onMounted } from 'vue'
 
 const localePath = useLocalePath();
 

@@ -2,6 +2,12 @@
 export default defineNuxtConfig({
   devtools: { enabled: true },
   ssr: false,
+  modules: [
+    "@nuxtjs/i18n",
+    "@nuxtjs/tailwindcss",
+    "@nuxtjs/strapi",
+    "@nuxt/content",
+  ],
   components: {
     dirs: [
       {
@@ -10,7 +16,6 @@ export default defineNuxtConfig({
       },
     ],
   },
-  modules: ["@nuxtjs/i18n", "@nuxtjs/tailwindcss", "@nuxtjs/strapi"],
   runtimeConfig: {
     functionBaseUrl:
       process.env.NODE_ENV === "production"
