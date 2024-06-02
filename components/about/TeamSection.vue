@@ -82,18 +82,12 @@
 </template>
 
 <script setup lang="ts">
-import { ref } from "vue";
-// import { onMounted } from 'vue'
+import * as TEAM_SECTION from "~/content/site/about/team_section.json";
+const { locale } = useI18n();
 
-// onMounted(async ()=>{
-//   console.log(this);
+const { data: people } = await useAsyncData("members", () =>
+  queryContent("members", locale.value).find()
+);
 
-//   // people = await this.$content('members', this.$i18n.locale).fetch()
-// })
-const people = ref<Array<any>>([]);
-const teamSection = {
-  title: "Our team",
-  subtitle:
-    "Our team members are responsible of an-nadaa organizeation froma all aspects",
-};
+const teamSection = TEAM_SECTION.en;
 </script>

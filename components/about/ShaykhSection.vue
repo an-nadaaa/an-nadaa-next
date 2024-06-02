@@ -1,13 +1,21 @@
 <template>
   <div class="overflow-hidden bg-white">
     <div class="relative px-4 py-16 mx-auto max-w-7xl sm:px-6 lg:px-8">
-      <div class="absolute top-0 bottom-0 hidden w-screen lg:block bg-gray-50 left-3/4" />
-      <div class="mx-auto text-base max-w-prose lg:grid lg:grid-cols-2 lg:gap-8 lg:max-w-none">
+      <div
+        class="absolute top-0 bottom-0 hidden w-screen lg:block bg-gray-50 left-3/4"
+      />
+      <div
+        class="mx-auto text-base max-w-prose lg:grid lg:grid-cols-2 lg:gap-8 lg:max-w-none"
+      >
         <div>
-          <h2 class="text-base font-semibold tracking-wide uppercase text-primary-600">
+          <h2
+            class="text-base font-semibold tracking-wide uppercase text-primary-600"
+          >
             {{ shaykhSection.title }}
           </h2>
-          <h3 class="mt-2 text-3xl font-extrabold leading-8 tracking-tight text-gray-900 sm:text-4xl">
+          <h3
+            class="mt-2 text-3xl font-extrabold leading-8 tracking-tight text-gray-900 sm:text-4xl"
+          >
             {{ shaykhSection.subtitle }}
           </h3>
         </div>
@@ -20,7 +28,8 @@
             height="384"
             fill="none"
             viewBox="0 0 404 384"
-            aria-hidden="true">
+            aria-hidden="true"
+          >
             <defs>
               <pattern
                 id="de316486-4a29-4312-bdfc-fbce2132a2c1"
@@ -28,11 +37,23 @@
                 y="0"
                 width="20"
                 height="20"
-                patternUnits="userSpaceOnUse">
-                <rect x="0" y="0" width="4" height="4" class="text-gray-200" fill="currentColor" />
+                patternUnits="userSpaceOnUse"
+              >
+                <rect
+                  x="0"
+                  y="0"
+                  width="4"
+                  height="4"
+                  class="text-gray-200"
+                  fill="currentColor"
+                />
               </pattern>
             </defs>
-            <rect width="404" height="384" fill="url(#de316486-4a29-4312-bdfc-fbce2132a2c1)" />
+            <rect
+              width="404"
+              height="384"
+              fill="url(#de316486-4a29-4312-bdfc-fbce2132a2c1)"
+            />
           </svg>
           <div class="relative mx-auto text-base max-w-prose lg:max-w-none">
             <figure>
@@ -42,7 +63,8 @@
                   :src="shaykhSection.imageUrl"
                   alt="Shaykh giving a talk"
                   width="1184"
-                  height="1376" />
+                  height="1376"
+                />
               </div>
               <!-- <figcaption class="flex mt-3 text-sm text-gray-500">
                 <CameraIcon class="flex-none w-5 h-5 text-gray-400" aria-hidden="true" />
@@ -52,7 +74,10 @@
           </div>
         </div>
         <div class="mt-8 lg:mt-0">
-          <div class="prose prose-lg text-gray-500" v-html="prosefy(shaykhBio)"></div>
+          <div
+            class="prose prose-lg text-gray-500"
+            v-html="prosefy(shaykhBio)"
+          ></div>
           <!-- <div class="mx-auto text-base max-w-prose lg:max-w-none">
             <p class="text-lg text-gray-500">
               Sagittis scelerisque nulla cursus in enim consectetur quam. Dictum urna sed consectetur neque tristique
@@ -89,19 +114,13 @@
 </template>
 
 <script setup lang="ts">
-import { CameraIcon } from 'vue-tabler-icons'
-import * as SHAYKH_SECTION from '~/content/site/about/shaykh_section.json'
-import { marked } from 'marked'
-import sanitizeHtml from 'sanitize-html'
+import * as SHAYKH_SECTION from "~/content/site/about/shaykh_section.json";
+import { marked } from "marked";
+import sanitizeHtml from "sanitize-html";
 
-const shaykhSection = {
-    "imageUrl": "https://an-nadaa-media.s3.us-west-004.backblazeb2.com/website/photo_2022-03-17_13-50-53.jpg",
-    "title": "Founder (Nigeria) & Deputy Chairman (Malaysia)",
-    "subtitle": "Meet Sheikh Ibrahim Nuhu",
-    "description": "Sheikh Ibrahim Nuhu is an Associate Professor at the Dept of Economics at the International Islamic University Malaysia. As a child, he was traditionally trained under his father and other local scholars in the Maliki Fiqh. He started off his teaching career as the headmaster of Raudatul Qur’an School in Nigeria. He was then accepted into the International Islamic University, Madinah. He graduated from the Dept of Shariah at the top of his class with his Bachelors in Shariah and Islamic Studies. He then followed that up with a Postgraduate Diploma (first class of honours) in Islamic Law and Islamic Political Science from the same university only to pursue and complete his Masters and PhD in Shariah and Civil Laws at the International Islamic University Malaysia. Sheikh Ibrahim is an advisor and speaker for many Muslim student bodies in Universities all across Malaysia, delivering hundreds of Islamic lectures and Dawah programs. He is well known for conducting free weekly classes ranging from Aqeedah, Fiqh, Tafseer, Usool and others, which are attended by many students and lecturers. Currently he is the Director and Founder of An-Nadaa Educational Foundation which is working to alleviate the difficulties and fulfill the needs of poor Muslims in Nigeria and elevate them with education."
-  } 
+const shaykhSection = SHAYKH_SECTION.en;
 
-const shaykhBio =       `<p className="lead">
+const shaykhBio = `<p className="lead">
   Dr. Ibrahim Nuhu Tahir is the founder of An-Nadaa Educational Foundation. He personally supervises and monitors all the activities of the foundation to ensure that they are in line with the rules of Allah, objectives of the organization and maximise the benefit for the community. All this while also ensuring the rights of the donors, partners and beneficiaries are not violated in any way.
 </p>
 
@@ -113,9 +132,9 @@ He was then accepted into the International Islamic University, Madinah. He grad
 ### Malaysia
 He then went on to complete his masters and PhD from Islamic International University of Malaysia. While he was doing his PhD he was also a teacher and the head of Islamic department in the International Islamic School Malaysia. After completing his PhD sheikh was invited to join the department of Economics and Management Sciences where he is now an associate professor. He is also a research fellow at the Center for Islamic Economics.
 ### Youth Empowerment
-Sheikh Ibrahim allots a lot of his free time, and many times sacrifices his own family time, to engage with youth and spread the knowledge and the tarbiyyah of the deen. He conducts classes in Fiqh, Seerah, Akhlaaq, Tafseer, Faraid, essential knowledge for new muslims. Sheikh Ibrahim also holds advisory roles with many organisations and student bodies. With his deep knowledge coupled with extreme humility, Sheikh Ibrahim has significantly single-handedly developed Islam in the lives of hundreds if not thousands of Muslim youth.`
+Sheikh Ibrahim allots a lot of his free time, and many times sacrifices his own family time, to engage with youth and spread the knowledge and the tarbiyyah of the deen. He conducts classes in Fiqh, Seerah, Akhlaaq, Tafseer, Faraid, essential knowledge for new muslims. Sheikh Ibrahim also holds advisory roles with many organisations and student bodies. With his deep knowledge coupled with extreme humility, Sheikh Ibrahim has significantly single-handedly developed Islam in the lives of hundreds if not thousands of Muslim youth.`;
 
 function prosefy(content: any) {
-  return sanitizeHtml(marked.parse(content))
+  return sanitizeHtml(marked.parse(content));
 }
 </script>

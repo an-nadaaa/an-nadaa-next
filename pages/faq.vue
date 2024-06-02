@@ -56,7 +56,6 @@ useHead({
   ],
 });
 
-// todo: $content, error and app does not exist on NuxtApp
 const { data: faqs } = await useAsyncData("faq", () =>
   queryContent("faq", locale.value).sort({ date: -1 }).find()
 );
