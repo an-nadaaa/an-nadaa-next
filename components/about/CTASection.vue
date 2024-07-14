@@ -22,15 +22,15 @@
 </template>
 
 <script setup lang="ts">
-import * as CTA_SECTION from "~/content/site/about/cta_section.json";
-import { onMounted } from "vue";
-import { useLocalePath } from "#imports";
+import * as CTA_SECTION from "~/content/site/about/cta_section.json"
+import { onMounted } from "vue"
+import { useLocalePath } from "#imports"
 
-let localePath = useLocalePath();
+let localePath = useLocalePath()
 onMounted(() => {
   // const link = document.getElementById('about-cta-link')
   // this.$segment.trackLink(link, 'About CTA Clicked')
-});
+})
 
-const ctaSection = CTA_SECTION.en;
+const ctaSection = CTA_SECTION.en
 </script>

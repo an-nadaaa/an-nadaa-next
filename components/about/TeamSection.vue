@@ -12,6 +12,7 @@
             {{ teamSection.subtitle }}
           </p>
         </div>
+        <!-- <h1>{{ data }}</h1> -->
         <ul
           role="list"
           class="space-y-12 sm:grid sm:grid-cols-2 sm:gap-x-6 sm:gap-y-12 sm:space-y-0 lg:grid-cols-3 lg:gap-x-8"
@@ -35,7 +36,7 @@
                 <ul role="list" class="flex space-x-5">
                   <li>
                     <a
-                      :href="person.twitterUrl"
+                      :href="person.twitter"
                       class="text-gray-400 hover:text-gray-500"
                     >
                       <span class="sr-only">Twitter</span>
@@ -53,7 +54,7 @@
                   </li>
                   <li>
                     <a
-                      :href="person.linkedinUrl"
+                      :href="person.linkedin"
                       class="text-gray-400 hover:text-gray-500"
                     >
                       <span class="sr-only">LinkedIn</span>
@@ -82,12 +83,22 @@
 </template>
 
 <script setup lang="ts">
-import * as TEAM_SECTION from "~/content/site/about/team_section.json";
-const { locale } = useI18n();
+import * as TEAM_SECTION from "~/content/site/about/team_section.json"
 
-const { data: people } = await useAsyncData("members", () =>
+type Person = {
+  imageUrl: string
+  name: string
+  role: string
+  linkedin: string
+  twitter: string
+}
+const { locale } = useI18n()
+
+const { data } = await useAsyncData("members", () =>
   queryContent("members", locale.value).find()
-);
+)
 
-const teamSection = TEAM_SECTION.en;
+const people = (data.value ? (data.value as unknown) : []) as Person[]
+
+const teamSection = TEAM_SECTION.en
 </script>

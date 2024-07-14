@@ -59,15 +59,15 @@
 </template>
 
 <script setup lang="ts">
-defineProps(["metrics"]);
+defineProps(["metrics"])
 
 const metricsUrl = ref(
   "https://images.unsplash.com/photo-1489573280374-2e193c63726c?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=2340&q=80"
-);
+)
 
 function formatNumber(value: number) {
-  return new Intl.NumberFormat(this.$i18n.locale, {
+  return new Intl.NumberFormat(useI18n().locale.value, {
     notation: "compact",
-  }).format(value);
+  }).format(value)
 }
 </script>

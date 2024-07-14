@@ -74,10 +74,7 @@
           </div>
         </div>
         <div class="mt-8 lg:mt-0">
-          <div
-            class="prose prose-lg text-gray-500"
-            v-html="prosefy(shaykhBio)"
-          ></div>
+          <div class="prose prose-lg text-gray-500" v-html="html"></div>
           <!-- <div class="mx-auto text-base max-w-prose lg:max-w-none">
             <p class="text-lg text-gray-500">
               Sagittis scelerisque nulla cursus in enim consectetur quam. Dictum urna sed consectetur neque tristique
@@ -114,11 +111,12 @@
 </template>
 
 <script setup lang="ts">
-import * as SHAYKH_SECTION from "~/content/site/about/shaykh_section.json";
-import { marked } from "marked";
-import sanitizeHtml from "sanitize-html";
+import * as SHAYKH_SECTION from "~/content/site/about/shaykh_section.json"
+import { marked } from "marked"
+import sanitizeHtml from "sanitize-html"
 
-const shaykhSection = SHAYKH_SECTION.en;
+const shaykhSection = SHAYKH_SECTION.en
+// const html = ref(sanitizeHtml(await marked.parse(content)))
 
 const shaykhBio = `<p className="lead">
   Dr. Ibrahim Nuhu Tahir is the founder of An-Nadaa Educational Foundation. He personally supervises and monitors all the activities of the foundation to ensure that they are in line with the rules of Allah, objectives of the organization and maximise the benefit for the community. All this while also ensuring the rights of the donors, partners and beneficiaries are not violated in any way.
@@ -132,9 +130,11 @@ He was then accepted into the International Islamic University, Madinah. He grad
 ### Malaysia
 He then went on to complete his masters and PhD from Islamic International University of Malaysia. While he was doing his PhD he was also a teacher and the head of Islamic department in the International Islamic School Malaysia. After completing his PhD sheikh was invited to join the department of Economics and Management Sciences where he is now an associate professor. He is also a research fellow at the Center for Islamic Economics.
 ### Youth Empowerment
-Sheikh Ibrahim allots a lot of his free time, and many times sacrifices his own family time, to engage with youth and spread the knowledge and the tarbiyyah of the deen. He conducts classes in Fiqh, Seerah, Akhlaaq, Tafseer, Faraid, essential knowledge for new muslims. Sheikh Ibrahim also holds advisory roles with many organisations and student bodies. With his deep knowledge coupled with extreme humility, Sheikh Ibrahim has significantly single-handedly developed Islam in the lives of hundreds if not thousands of Muslim youth.`;
+Sheikh Ibrahim allots a lot of his free time, and many times sacrifices his own family time, to engage with youth and spread the knowledge and the tarbiyyah of the deen. He conducts classes in Fiqh, Seerah, Akhlaaq, Tafseer, Faraid, essential knowledge for new muslims. Sheikh Ibrahim also holds advisory roles with many organisations and student bodies. With his deep knowledge coupled with extreme humility, Sheikh Ibrahim has significantly single-handedly developed Islam in the lives of hundreds if not thousands of Muslim youth.`
 
-function prosefy(content: any) {
-  return sanitizeHtml(marked.parse(content));
-}
+const html = ref(sanitizeHtml(await marked.parse(shaykhBio)))
+
+// async function prosefy(content: any) {
+//   return sanitizeHtml(await marked.parse(content))
+// }
 </script>

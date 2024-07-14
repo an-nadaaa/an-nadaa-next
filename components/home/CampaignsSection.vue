@@ -17,5 +17,10 @@
 </template>
 
 <script setup lang="ts">
-defineProps(["causes"]);
+const props = defineProps({
+  causes: {
+    type: Array<Object>,
+    required: true,
+  },
+})
 </script>
