@@ -30,7 +30,7 @@
           <dt class="text-base font-medium text-gray-900">
             {{ faq.question }}
           </dt>
-          <dd class="mt-3 text-sm prose text-gray-500" v-html="answer(i)"></dd>
+          <dd class="mt-3 text-sm prose text-gray-500" v-html="answers[i]"></dd>
         </div>
       </dl>
     </div>
@@ -38,11 +38,16 @@
 </template>
 
 <script setup lang="ts">
-import { marked } from "marked";
-import { onMounted } from "vue";
-import sanitizeHtml from "sanitize-html";
+import { marked } from "marked"
+import { onMounted } from "vue"
+import sanitizeHtml from "sanitize-html"
 
-const { locale } = useI18n();
+const { locale } = useI18n()
+const answers = ref<any[]>([])
+interface FAQ {
+  question: string
+  answer: string
+}
 
 useHead({
   title: "Frequently asked questions | An-nadaa educational foundation",
@@ -54,17 +59,27 @@ useHead({
         "Frequently asked questions addresses the most common questions asked for our educational foundation",
     },
   ],
-});
+})
 
-const { data: faqs } = await useAsyncData("faq", () =>
-  queryContent("faq", locale.value).sort({ date: -1 }).find()
-);
+const { data: faqs } = await useAsyncData(
+  "faq",
+  () =>
+    queryContent("faq", locale.value)
+      .sort({ date: -1 })
+      .find() as unknown as Promise<FAQ[]>
+)
+
+async function answer(faq: FAQ) {
+  return sanitizeHtml(await marked(faq.answer))
+}
 
 onMounted(() => {
-  // this.$segment.page('FAQ')
-});
+  faqs.value?.forEach(async (faq, i) => {
+    answers.value[i] = await answer(faq)
+  })
+})
 
-function answer(i: any) {
-  return sanitizeHtml(marked(this.faqs[i].answer));
-}
+// onMounted(() => {
+//   // this.$segment.page('FAQ')
+// });
 </script>
