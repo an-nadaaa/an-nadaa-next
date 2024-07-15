@@ -20,9 +20,11 @@
 import { PRIMARY_COLOR } from '~/config/config'
 import { XIcon } from 'vue-tabler-icons'
 import { Player, DefaultUi } from '@vime/vue'
-import { computed, getCurrentInstance, onBeforeMount } from 'vue'
+import { computed, onBeforeMount } from 'vue'
 
-const app = getCurrentInstance()
+const eventBus = useEventBus()
+
+// const app = getCurrentInstance()
 
 const props = defineProps({
   showPlayer: {
@@ -37,26 +39,31 @@ const props = defineProps({
 
 const videoID = ref('')
 const provider = ref('Video')
-const iframSrc = ref('')
+const player = ref<any | null>()
+const iframeSrc = ref('')
 
 function closePlayer() {
   // hide when event is fired
-  this.player.pause()
-  this.$bus.$emit('player:close')
+  player.value.pause()
+  eventBus.emit('player:close')
 }
 
-watch(() => props.showPlayer, (val) => {
-  if (val) {
-    // const canAutoplay = await this.player.canAutoplay()
-    // if (!canAutoplay) {
-    //   this.player.play()
-    // }
-  }}
-, { immediate: true });
+watch(
+  () => props.showPlayer,
+  async (val) => {
+    if (val) {
+      const canAutoplay = await player.value.canAutoplay()
+      if (!canAutoplay) {
+        player.value.play()
+      }
+    }
+  },
+  { immediate: true }
+)
 
-const player = computed(() => {
-  return app?.refs.player
-})
+// const player = computed(() => {
+//   return app?.refs.player
+// })
 
 const styles = computed(() => {
   return {
@@ -85,7 +92,7 @@ onBeforeMount(() => {
   } else if (vimeoRegex.test(props.videoLocation)) {
     provider.value = 'Vimeo'
     // capture the video id from the regex
-    if(props.videoLocation.match(vimeoRegex)){
+    if (props.videoLocation.match(vimeoRegex)) {
       videoID.value = (props.videoLocation.match(vimeoRegex) as RegExpMatchArray)[3]
     }
   }

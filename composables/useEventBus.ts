@@ -1,35 +1,23 @@
-interface EventBusData {
-  [eventName: string]: any;
-}
+export const useEventBus = () => {
+  const eventBus = useState('bus', () => '')
 
-export const eventBus: EventBusData = {};
+  const emit = (event: string) => {
+    eventBus.value = event
+  }
 
-export function useEventBus() {
-  const emit = (eventName: string, data?: any) => {
-    eventBus[eventName] = data;
-  };
-
-  const on = <TEventData>(eventName: string, callback: (data: TEventData) => void) => {
-    if (!eventBus[eventName]) {
-      eventBus[eventName] = [];
-    }
-    eventBus[eventName].push(callback);
-  };
-
-  const off = (eventName: string, callback?: (data: any) => void) => {
-    if (!eventBus[eventName]) return;
-    if (!callback) {
-      // Remove all listeners for the event
-      delete eventBus[eventName];
-    } else {
-      // Remove specific callback
-      eventBus[eventName] = eventBus[eventName].filter((fn: Function) => fn !== callback);
-    }
-  };
+  const on = (event: string, callback: Function) => {
+    return watch(eventBus, (newEvent) => {
+      if (newEvent === event) {
+        callback()
+        eventBus.value = ''
+        console.log('Event bus reset')
+      }
+    })
+  }
 
   return {
+    // eventBus,
     emit,
     on,
-    off,
-  };
+  }
 }
