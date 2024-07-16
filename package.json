@@ -28,10 +28,12 @@
   "dependencies": {
     "@nuxtjs/i18n": "^8.0.1",
     "@nuxtjs/strapi": "^1.11.0",
+    "@vime/core": "^5.4.1",
     "@vime/vue": "^5.4.1",
+    "@vime/vue-next": "^5.4.1",
     "hooper": "^0.3.4",
     "marked": "^13.0.2",
-    "qs": "6.10.3",
+    "qs": "^6.12.3",
     "sanitize-html": "2.7.0",
     "vue-spinner": "^1.0.4",
     "vue-tabler-icons": "^2.21.0",
