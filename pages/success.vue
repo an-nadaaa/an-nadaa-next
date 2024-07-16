@@ -29,13 +29,11 @@
 </template>
 
 <script setup lang="ts">
-import { onMounted } from 'vue'
+const localePath = useLocalePath()
 
-const localePath = useLocalePath();
+// onMounted(()=>{
+//   // this.$segment.track('Donation Complete')
+//   // this.$segment.page('Jazakoum Allahou Khayran')
 
-onMounted(()=>{
-  // this.$segment.track('Donation Complete')
-  // this.$segment.page('Jazakoum Allahou Khayran')
-
-})
+// })
 </script>

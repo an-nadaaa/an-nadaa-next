@@ -10,21 +10,21 @@
 </template>
 
 <script setup lang="ts">
-import { onMounted } from 'vue';
+import { onMounted } from 'vue'
 
 useHead({
-  title: 'Our story | An-nadaa educational foundation',
+  title: 'Our story | An-Nadaa educational foundation',
   meta: [
     {
       hid: 'description',
       name: 'description',
       content:
-        'An-nadaa project, build for your hereafter today,You can change the lives of millions by supporting educational and welfare projects of An-Nadaa',
+        'An-Nadaa project, build for your hereafter today,You can change the lives of millions by supporting educational and welfare projects of An-Nadaa',
     },
   ],
-});
+})
 
-onMounted(()=>{
+onMounted(() => {
   // this.$segment.page('About')
 })
 </script>

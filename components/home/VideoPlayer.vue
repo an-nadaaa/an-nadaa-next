@@ -19,7 +19,7 @@
 <script setup lang="ts">
 import { PRIMARY_COLOR } from '~/config/config'
 import { XIcon } from 'vue-tabler-icons'
-import { Player, DefaultUi } from '@vime/vue'
+import { Player, DefaultUi } from '@vime/vue-next'
 import { computed, onBeforeMount } from 'vue'
 
 const eventBus = useEventBus()

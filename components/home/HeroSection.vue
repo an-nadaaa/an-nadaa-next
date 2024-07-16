@@ -36,7 +36,7 @@
 <script setup>
 import { PlayerPlayIcon } from 'vue-tabler-icons'
 import { onMounted } from 'vue'
-import bg from '../../assets/img/Sectionhero.png'
+import bg from 'assets/media/img/Sectionhero.png'
 
 const eventBus = useEventBus()
 const bgUrl = bg
