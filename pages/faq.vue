@@ -19,7 +19,7 @@
           <dt class="text-base font-medium text-gray-900">
             {{ faq.question }}
           </dt>
-          <dd class="mt-3 text-sm prose text-gray-500" v-html="answer(answers[i])"></dd>
+          <dd class="mt-3 text-sm prose text-gray-500" v-html="answers[i]"></dd>
         </div>
       </dl>
     </div>
