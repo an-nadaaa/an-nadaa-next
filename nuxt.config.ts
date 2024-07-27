@@ -3,6 +3,7 @@ export default defineNuxtConfig({
   devtools: { enabled: true },
   ssr: false,
   modules: ['@nuxtjs/i18n', '@nuxtjs/tailwindcss', '@nuxtjs/strapi', '@nuxt/content'],
+
   components: {
     dirs: [
       {
@@ -11,6 +12,7 @@ export default defineNuxtConfig({
       },
     ],
   },
+
   runtimeConfig: {
     functionBaseUrl:
       process.env.NODE_ENV === 'production'
@@ -24,6 +26,7 @@ export default defineNuxtConfig({
       STRAPI_API_KEY: process.env.STRAPI_API_KEY,
     },
   },
+
   // https://strapi.nuxtjs.org/setup#options
   // strapi: {
   //   // Options
@@ -49,4 +52,6 @@ export default defineNuxtConfig({
     langDir: 'translations/',
     baseUrl: process.env.NODE_ENV === 'production' ? process.env.BASE_URL : 'http://localhost:8888',
   },
+
+  compatibilityDate: '2024-07-27',
 })
