@@ -1,7 +1,7 @@
 <template>
   <main>
     <!-- <HeroSection /> -->
-    <!-- <LogoCloud /> -->
+    <LogoCloud />
     <!-- <HomeStorySection /> -->
     <!-- <MetricsSection :metrics="metrics" /> -->
     <!-- <ClientOnly>
