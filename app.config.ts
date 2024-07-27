@@ -1,3 +1,5 @@
+import colors from "tailwindcss/colors";
+
 export default defineAppConfig({
   siteName: "An-Nadaa – Educate Empower Improve",
   siteDescription:
@@ -7,4 +9,5 @@ export default defineAppConfig({
   colorModeFallback: "dark", // should replace COLOR_MODE_FALLBACK
   currencySymbol: "$", // should replace CURRENCY_SYMBOL
   currencyName: "USD", // should replace CURRENCY_NAME
+  primaryColor: colors.cyan,
 });

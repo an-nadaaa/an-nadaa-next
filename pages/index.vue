@@ -1,17 +1,17 @@
 <template>
-  <!-- <main>
-    <HeroSection />
-    <LogoCloud />
-    <HomeStorySection />
-    <MetricsSection :metrics="metrics" />
-    <ClientOnly>
-      <FeaturedCampaigns :featured-causes="featuredCauses" />
-      <CampaignsSection :causes="causes" />
-    </ClientOnly>
-    <DonateSection />
-    <TestimonialsSection :testimonials="testimonials" />
-    <FAQSection :faqs="faqs" />
-  </main> -->
+  <main>
+    <!-- <HeroSection /> -->
+    <!-- <LogoCloud /> -->
+    <!-- <HomeStorySection /> -->
+    <!-- <MetricsSection :metrics="metrics" /> -->
+    <!-- <ClientOnly>
+        <FeaturedCampaigns :featured-causes="featuredCauses" />
+        <CampaignsSection :causes="causes" />
+      </ClientOnly> -->
+    <!-- <DonateSection /> -->
+    <!-- <TestimonialsSection :testimonials="testimonials" /> -->
+    <!-- <FAQSection :faqs="faqs" /> -->
+  </main>
 </template>
 
 <script setup lang="ts">

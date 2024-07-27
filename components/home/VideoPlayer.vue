@@ -4,11 +4,23 @@
       <XIcon
         v-if="showPlayer"
         @click="closePlayer"
-        class="absolute right-0 z-50 w-10 h-10 m-3 text-gray-400 cursor-pointer hover:text-gray-500" />
-      <Player playsinline ref="player" @vmPlaybackEnded="closePlayer" controls autoplay :style="styles">
+        class="absolute right-0 z-50 w-10 h-10 m-3 text-gray-400 cursor-pointer hover:text-gray-500"
+      />
+      <Player
+        playsinline
+        ref="player"
+        @vmPlaybackEnded="closePlayer"
+        controls
+        autoplay
+        :style="styles"
+      >
         <!-- Provider component is placed here. -->
         <Component :is="provider" :videoId="videoID">
-          <source v-if="provider === 'Video'" :data-src="videoLocation" type="video/mp4" />
+          <source
+            v-if="provider === 'Video'"
+            :data-src="videoLocation"
+            type="video/mp4"
+          />
         </Component>
         <DefaultUi />
       </Player>
@@ -17,14 +29,14 @@
 </template>
 
 <script setup lang="ts">
-import { PRIMARY_COLOR } from '~/config/config'
-import { XIcon } from 'vue-tabler-icons'
-import { Player, DefaultUi } from '@vime/vue-next'
-import { computed, onBeforeMount } from 'vue'
+import { XIcon } from "vue-tabler-icons";
+import { Player, DefaultUi } from "@vime/vue";
+import { computed, getCurrentInstance, onBeforeMount } from "vue";
 
+const { primaryColor } = useAppConfig();
 const eventBus = useEventBus()
 
-// const app = getCurrentInstance()
+const app = getCurrentInstance();
 
 const props = defineProps({
   showPlayer: {
@@ -35,7 +47,7 @@ const props = defineProps({
     type: String,
     required: true,
   },
-})
+});
 
 const videoID = ref('')
 const provider = ref('Video')
@@ -67,47 +79,49 @@ watch(
 
 const styles = computed(() => {
   return {
-    '--vm-player-theme': PRIMARY_COLOR[500],
-  }
-})
+    "--vm-player-theme": primaryColor[500],
+  };
+});
 
 onBeforeMount(() => {
   // detect what provider to use
-  const videoRegex = /\/media\/video\/.+\.mp4/
+  const videoRegex = /\/media\/video\/.+\.mp4/;
   // regex to detect youtube urls
   const youtubeRegex =
-    /^((?:https?:)?\/\/)?((?:www|m)\.)?((?:youtube(-nocookie)?\.com|youtu.be))(\/(?:[\w\-]+\?v=|embed\/|v\/)?)([\w\-]+)(\S+)?$/
+    /^((?:https?:)?\/\/)?((?:www|m)\.)?((?:youtube(-nocookie)?\.com|youtu.be))(\/(?:[\w\-]+\?v=|embed\/|v\/)?)([\w\-]+)(\S+)?$/;
   // regex to detect vimeo urls
   const vimeoRegex =
-    /https?:\/\/(?:www\.|player\.)?vimeo.com\/(?:channels\/(?:\w+\/)?|groups\/([^\/]*)\/videos\/|album\/(\d+)\/video\/|video\/|)(\d+)(?:$|\/|\?)/
+    /https?:\/\/(?:www\.|player\.)?vimeo.com\/(?:channels\/(?:\w+\/)?|groups\/([^\/]*)\/videos\/|album\/(\d+)\/video\/|video\/|)(\d+)(?:$|\/|\?)/;
 
   if (videoRegex.test(props.videoLocation)) {
-    provider.value = 'Video'
+    provider.value = "Video";
   } else if (youtubeRegex.test(props.videoLocation)) {
-    provider.value = 'Youtube'
+    provider.value = "Youtube";
     // capture the video id from the regex
     if (props.videoLocation.match(youtubeRegex)) {
-      videoID.value = (props.videoLocation.match(youtubeRegex) as RegExpMatchArray)[6]
+      videoID.value = (
+        props.videoLocation.match(youtubeRegex) as RegExpMatchArray
+      )[6];
     }
   } else if (vimeoRegex.test(props.videoLocation)) {
-    provider.value = 'Vimeo'
+    provider.value = "Vimeo";
     // capture the video id from the regex
     if (props.videoLocation.match(vimeoRegex)) {
       videoID.value = (props.videoLocation.match(vimeoRegex) as RegExpMatchArray)[3]
     }
   }
-})
+});
 
 useHead({
   link: [
     {
-      rel: 'stylesheet',
-      href: 'https://cdn.jsdelivr.net/npm/@vime/core@^5/themes/default.css',
+      rel: "stylesheet",
+      href: "https://cdn.jsdelivr.net/npm/@vime/core@^5/themes/default.css",
     },
     {
-      rel: 'stylesheet',
-      href: 'https://cdn.jsdelivr.net/npm/@vime/core@^5/themes/light.css',
+      rel: "stylesheet",
+      href: "https://cdn.jsdelivr.net/npm/@vime/core@^5/themes/light.css",
     },
   ],
-})
+});
 </script>

@@ -48,8 +48,8 @@ function showVideoPlayer() {
   // this.$segment.track('Home Video Played')
 }
 
-onMounted(() => {
-  const link = document.getElementById('home-causes-link')
+onMounted(()=>{
+  // const link = document.getElementById('home-causes-link')
   // this.$segment.trackLink(link, 'Home Causes Clicked')
   // todo: handle player on close
   eventBus.on('player:close', () => {

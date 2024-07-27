@@ -2216,38 +2216,6 @@ packages:
       - supports-color
     dev: true
 
-  /@vime/core@5.4.1:
-    resolution: {integrity: sha512-ZFpV3xqZJ5tvh5rZOYKRh8zFzNIKr2ZcK6L75nJjFjbWt/ZmFF2nMBxtD9/hC4Xjk9v7hp1+P9cmctL674VFgA==}
-    dependencies:
-      '@stencil/core': 2.5.2
-      '@types/fscreen': 1.0.4
-      fscreen: 1.2.0
-      mitt: 3.0.1
-      stencil-wormhole: 3.4.1
-    dev: false
-
-  /@vime/vue-next@5.4.1(@vime/core@5.4.1)(vue@3.4.15):
-    resolution: {integrity: sha512-2zy2FfSSPmX7AwnZAoOoYx8CdU6NT9hTZD1lYwr6n5+4gKanaPCK5+5ab0GHlv3+8SuAaO5jLUJG3G12lf6LYw==}
-    requiresBuild: true
-    peerDependencies:
-      '@vime/core': 5.4.1
-      vue: ^3.0.0
-    dependencies:
-      '@vime/core': 5.4.1
-      vue: 3.4.15
-    dev: false
-
-  /@vime/vue@5.4.1(@vime/core@5.4.1)(vue@3.4.15):
-    resolution: {integrity: sha512-ghDoYXB4/gLrnnKdJRFDrNCInOiwE7ULGKTF7yniO1EHg4khvT/+R/HuuRzI96EXClhhisA2wmqBrakwrgPdkw==}
-    requiresBuild: true
-    peerDependencies:
-      '@vime/core': 5.4.1
-      vue: ^2.6.11
-    dependencies:
-      '@vime/core': 5.4.1
-      vue: 3.4.15
-    dev: false
-
   /@vitejs/plugin-vue-jsx@3.1.0(vite@5.0.11)(vue@3.4.15):
     resolution: {integrity: sha512-w9M6F3LSEU5kszVb9An2/MmXNxocAnUb3WhRr8bHlimhDrXNt6n6D2nJQR3UXpGlZHh/EsgouOHCsM8V3Ln+WA==}
     engines: {node: ^14.18.0 || >=16.0.0}
