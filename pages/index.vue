@@ -2,8 +2,12 @@
   <main>
     <!-- <HeroSection /> -->
     <LogoCloud />
-    <!-- <HomeStorySection /> -->
-    <!-- <MetricsSection :metrics="metrics" /> -->
+    <HomeStorySection />
+    <!-- <h1>{{ datum }}</h1> -->
+    <!-- <pre>{{ capitalizeFirstLetter(useI18n().locale as unknown as string) }}</pre> -->
+    <MetricsSection :metrics="metrics" />
+
+    <!-- <h1>{{ datum }}</h1> -->
     <!-- <ClientOnly>
         <FeaturedCampaigns :featured-causes="featuredCauses" />
         <CampaignsSection :causes="causes" />
@@ -15,20 +19,21 @@
 </template>
 
 <script setup lang="ts">
-// import qs from 'qs'
+import { use } from 'marked'
+import qs from 'qs'
 
-// const STRAPI_API = process.env.NODE_ENV === 'production' ? process.env.STRAPI_API : 'http://localhost:5000/api'
-// const sortBy = {
-//   key: 'date',
-//   direction: 'dec',
-// }
+const STRAPI_API = process.env.NODE_ENV === 'production' ? process.env.STRAPI_API : 'http://localhost:5000/api'
+const sortBy = {
+  key: 'date',
+  direction: 'dec',
+}
+const { locale } = useI18n()
 
 // const FEATURED_COUNT = 3
 // const CAMPAIGN_COUNT = 6
 // const causes = ref<any[]>([])
 // const featuredCauses = ref<any[]>([])
 // const faqs = ref<any[]>([])
-// const metrics = ref<any[]>([])
 // const testimonials = ref<any[]>([])
 
 // const causeQuery = qs.stringify(
@@ -136,12 +141,51 @@
 //       faqs.value = data
 //     })
 
+// function capitalizeFirstLetter(string: string) {
+//   if (typeof string !== 'string' || string.length === 0) {
+//     return string
+//   }
+//   return string.charAt(0).toUpperCase() + string.slice(1)
+// }
+
+// await useAsyncData('metrics', async () =>
+//   queryContent('metrics', `En`)
+//     .sort({ [sortBy.key]: sortBy.direction })
+//     .find()
+//     .then((data) => {
+//       // console.log('Content data: ', data)
+
+//       // datum.value = data
+//       // datum.value = data.toString()
+
+//       metrics.value = data
+//       // metrics.value = [...metrics.value, 'hello']
+//     }),
+// )
+
+// const { data: metrics } = await useAsyncData('metrics', async () =>
 //   queryContent('metrics', useI18n().locale as unknown as string)
 //     .sort({ [sortBy.key]: sortBy.direction })
 //     .find()
 //     .then((data) => {
-//       metrics.value = data
-//     })
+//       // metrics.value = data
+
+//       console.log('Content data: ', data)
+//       return data
+//     }),
+// )
+
+const { data: metrics } = await useAsyncData('metrics', async () => {
+  try {
+    return await queryContent('metrics', locale.value)
+      .sort({ [sortBy.key]: sortBy.direction })
+      .find()
+  } catch (err) {
+    throw createError({ statusCode: 404, message: 'No Metrics to display' })
+  }
+})
+
+// const { data: navigation } = await useAsyncData('navigation', () => fetchContentNavigation())
 
 //   queryContent('testimonials', useI18n().locale as unknown as string)
 //     .sort({ [sortBy.key]: sortBy.direction })
