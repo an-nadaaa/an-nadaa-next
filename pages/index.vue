@@ -9,7 +9,7 @@
       <CampaignsSection :causes="causes" />
     </ClientOnly>
     <DonateSection />
-    <!-- <TestimonialsSection :testimonials="testimonials" /> -->
+    <TestimonialsSection :testimonials="testimonials" />
     <FAQSection :faqs="faqs" />
   </main>
 </template>
@@ -105,7 +105,7 @@ const featuredQuery = qs.stringify(
   },
 )
 const { data: causes } = await useAsyncData('causes', async () =>
-  fetch(`${STRAPI_API}/causes?locale=${useI18n().locale.value}&${causeQuery}`, {
+  fetch(`${STRAPI_API}/causes?locale=${locale.value}&${causeQuery}`, {
     headers: {
       'Content-Type': 'application/json',
       Authorization: `Bearer ${useRuntimeConfig().public.STRAPI_API_KEY}`,
@@ -122,7 +122,7 @@ const { data: causes } = await useAsyncData('causes', async () =>
 )
 
 const { data: featuredCauses } = await useAsyncData('featured-causes', () =>
-  fetch(`${STRAPI_API}/causes?locale=${useI18n().locale.value}&${featuredQuery}`, {
+  fetch(`${STRAPI_API}/causes?locale=${locale.value}&${featuredQuery}`, {
     headers: {
       'Content-Type': 'application/json',
       Authorization: `Bearer ${useRuntimeConfig().public.STRAPI_API_KEY}`,
@@ -224,6 +224,8 @@ const { data: faqs } = await useAsyncData('faqs', async () => {
 //   // this.$segment.page('Home')
 // })
 </script>
+
+<style></style>
 <!-- 
 // export {
 
