@@ -53,10 +53,6 @@ watch(
   { immediate: true },
 )
 
-onMounted(() => {
-  console.log(props.videoLocation)
-})
-
 onBeforeMount(() => {
   // detect what provider to use
   const videoRegex = /\/media\/video\/.+\.mp4/

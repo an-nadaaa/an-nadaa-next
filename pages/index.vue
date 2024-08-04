@@ -114,9 +114,6 @@ const { data: causes } = await useAsyncData('causes', async () =>
   }).then(async (res) => {
     if (res.ok) {
       const response = await res.json()
-
-      console.log('Featured Causes: ', response)
-
       return response.data
     }
   }),
@@ -131,8 +128,6 @@ const { data: featuredCauses } = await useAsyncData('featured-causes', () =>
   }).then(async (res) => {
     if (res.ok) {
       const response = await res.json()
-
-      console.log('Featured Causes: ', response)
 
       return response.data
     }

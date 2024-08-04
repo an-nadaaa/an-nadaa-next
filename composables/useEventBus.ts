@@ -10,7 +10,6 @@ export const useEventBus = () => {
       if (newEvent === event) {
         callback()
         eventBus.value = ''
-        console.log('Event bus reset')
       }
     })
   }
