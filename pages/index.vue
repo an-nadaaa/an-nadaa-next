@@ -1,6 +1,7 @@
 <template>
   <main>
-    <!-- <HeroSection /> -->
+    <!-- <VideoTest></VideoTest> -->
+    <HeroSection />
     <LogoCloud />
     <HomeStorySection />
     <MetricsSection :metrics="metrics" />
