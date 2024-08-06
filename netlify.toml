@@ -6,8 +6,8 @@
   publish = "dist"
   functions = "functions"
 
-[functions]
-  node_bundler = "esbuild"
+# [functions]
+#   node_bundler = "esbuild"
 
 # [[plugins]]
 # package = "netlify-plugin-subfont"
@@ -41,5 +41,5 @@
   from = "/udhiyah"
   to = "/causes/23"
 
-[[plugins]]
-package = "netlify-plugin-inline-functions-env"
+# [[plugins]]
+# package = "netlify-plugin-inline-functions-env"
