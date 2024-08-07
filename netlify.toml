@@ -2,7 +2,7 @@
    command = "pnpm dev"
 
 [build]
-  command = "pnpm generate"
+  command = "pnpm build"
   publish = "dist"
   functions = "functions"
 
