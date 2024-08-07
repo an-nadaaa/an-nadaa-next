@@ -1,8 +1,8 @@
 [dev]
-   command = "yarn dev"
+   command = "pnpm dev"
 
 [build]
-  command = "yarn generate"
+  command = "pnpm generate"
   publish = "dist"
   functions = "functions"
 
