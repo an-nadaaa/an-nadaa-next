@@ -1,4 +1,4 @@
-import colors from 'tailwindcss/colors'
+import colors from 'tailwindcss/colors.js'
 
 export default defineAppConfig({
   siteName: 'An-Nadaa – Educate Empower Improve',
