@@ -34,8 +34,7 @@ const props = defineProps({
 })
 
 const player = useVideoPlayer()
-
-const eventBus = useEventBus()
+const emitter = useEmitter()
 const { primaryColor } = useAppConfig()
 
 const styles = computed(() => {
@@ -46,7 +45,7 @@ const styles = computed(() => {
 
 function closePlayer() {
   // hide when event is fired
-  eventBus.emit('player:close')
+  emitter.emit('player:close')
 }
 </script>
 <style></style>

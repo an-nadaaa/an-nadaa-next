@@ -15,7 +15,7 @@
 import { XIcon } from 'vue-tabler-icons'
 import { onBeforeMount } from 'vue'
 
-const eventBus = useEventBus()
+const emitter = useEmitter()
 
 const props = defineProps({
   showPlayer: {
@@ -38,7 +38,7 @@ const provider = ref('Video')
 
 function closePlayer() {
   player.value?.pause()
-  eventBus.emit('player:close')
+  emitter.emit('player:close')
 }
 
 watch(
@@ -47,7 +47,7 @@ watch(
     if (val) {
       setTimeout(() => {
         player.value?.play()
-      }, 200)
+      }, 1000)
     }
   },
   { immediate: true },

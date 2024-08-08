@@ -39,20 +39,20 @@ import bg from 'assets/media/img/Sectionhero.png'
 import videoLocation from '~/assets/media/video/What-Is-An-Nadaa.mp4'
 import videoCover from '~/assets/media/img/VideoCover.png'
 
-const eventBus = useEventBus()
+const emitter = useEmitter()
 const bgUrl = bg
 const showPlayer = ref(false)
 
-eventBus.on('player:open', () => {
+emitter.on('player:open', () => {
   showPlayer.value = true
 })
 
-eventBus.on('player:close', () => {
+emitter.on('player:close', () => {
   showPlayer.value = false
 })
 
 function showVideoPlayer() {
-  eventBus.emit('player:open')
+  emitter.emit('player:open')
   // showPlayer.value = true
   // this.$segment.track('Home Video Played')
 }
