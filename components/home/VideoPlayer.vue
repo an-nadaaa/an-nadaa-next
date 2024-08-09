@@ -6,7 +6,7 @@
         class="absolute left-0 z-50 w-10 h-10 m-3 text-gray-400 cursor-pointer hover:text-gray-500" />
 
       <!-- todo: Figure out why it has to be imported as child component or else it doesnt work-->
-      <Video :video-location="props.videoLocation" :video-cover="props.videoCover"></Video>
+      <Video :show-player="showPlayer" :video-location="props.videoLocation" :video-cover="props.videoCover"></Video>
     </ClientOnly>
   </div>
 </template>
@@ -19,7 +19,7 @@ const emitter = useEmitter()
 
 const props = defineProps({
   showPlayer: {
-    type: Boolean,
+    type: Object,
     required: true,
   },
   videoLocation: {
@@ -32,6 +32,7 @@ const props = defineProps({
   },
 })
 
+const showPlayer = toRef(props, 'showPlayer')
 const player = useVideoPlayer()
 const videoID = ref('')
 const provider = ref('Video')
@@ -40,18 +41,6 @@ function closePlayer() {
   player.value?.pause()
   emitter.emit('player:close')
 }
-
-watch(
-  () => props.showPlayer,
-  async (val) => {
-    if (val) {
-      setTimeout(() => {
-        player.value?.play()
-      }, 1000)
-    }
-  },
-  { immediate: true },
-)
 
 onBeforeMount(() => {
   // detect what provider to use

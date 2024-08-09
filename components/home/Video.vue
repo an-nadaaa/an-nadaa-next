@@ -1,6 +1,6 @@
 <template>
   <div>
-    <Player autoplay playsinline ref="player" @vm-playback-ended="closePlayer" :style="styles">
+    <Player playsinline ref="player" @vm-buffered-change="play" @vm-playback-ended="closePlayer" :style="styles">
       <Video :poster="props.videoCover">
         <source :data-src="props.videoLocation" type="video/mp4" />
       </Video>
@@ -31,11 +31,17 @@ const props = defineProps({
     type: String,
     required: true,
   },
+  showPlayer: {
+    type: Object,
+    required: true,
+  },
 })
 
+const showPlayer = toRef(props, 'showPlayer')
 const player = useVideoPlayer()
 const emitter = useEmitter()
 const { primaryColor } = useAppConfig()
+const firstLoad = ref(true)
 
 const styles = computed(() => {
   return {
@@ -47,5 +53,27 @@ function closePlayer() {
   // hide when event is fired
   emitter.emit('player:close')
 }
+
+function play() {
+  if (!props.autoplay) return
+  if (props.autoplay && firstLoad.value) {
+    setTimeout(() => {
+      player.value?.play()
+      firstLoad.value = false
+    }, 500)
+  }
+}
+
+watch(showPlayer, (val) => {
+  if (!props.autoplay) return
+
+  if (!val) {
+    player.value?.pause()
+    return
+  }
+  if (firstLoad.value) {
+    return
+  } else player.value?.play()
+})
 </script>
 <style></style>
