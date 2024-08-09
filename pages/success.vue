@@ -4,7 +4,7 @@
       <div class="flex justify-center flex-shrink-0">
         <a href="/" class="inline-flex">
           <span class="sr-only">An-Nadaa</span>
-          <img class="w-auto h-32" src="/logo-mini.png" alt="logo" />
+          <img class="w-auto h-32" src="~/assets/media/img/logo-mini.png" alt="logo" />
         </a>
       </div>
       <div class="py-16">

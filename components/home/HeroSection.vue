@@ -30,30 +30,30 @@
         </div>
       </div>
     </div>
-    <VideoPlayer v-show="showPlayer" :showPlayer="showPlayer" :videoLocation="videoLocation" />
+    <VideoPlayer v-show="showPlayer" :showPlayer="showPlayer" :videoLocation="videoLocation" :videoCover="videoCover" />
   </section>
 </template>
 <script setup>
 import { PlayerPlayIcon } from 'vue-tabler-icons'
-import { onMounted } from 'vue'
 import bg from 'assets/media/img/Sectionhero.png'
+import videoLocation from '~/assets/media/video/What-Is-An-Nadaa.mp4'
+import videoCover from '~/assets/media/img/VideoCover.png'
 
-const eventBus = useEventBus()
+const emitter = useEmitter()
 const bgUrl = bg
-const videoLocation = '/media/video/What-Is-An-nadaa.mp4'
 const showPlayer = ref(false)
 
-function showVideoPlayer() {
+emitter.on('player:open', () => {
   showPlayer.value = true
+})
+
+emitter.on('player:close', () => {
+  showPlayer.value = false
+})
+
+function showVideoPlayer() {
+  emitter.emit('player:open')
+  // showPlayer.value = true
   // this.$segment.track('Home Video Played')
 }
-
-onMounted(()=>{
-  // const link = document.getElementById('home-causes-link')
-  // this.$segment.trackLink(link, 'Home Causes Clicked')
-  // todo: handle player on close
-  eventBus.on('player:close', () => {
-    showPlayer.value = false
-  })
-})
 </script>
