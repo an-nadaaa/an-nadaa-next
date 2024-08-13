@@ -19,13 +19,13 @@
                 </span>
                 <span class="flex items-center ml-6 h-7">
                   <Component
-                    :is="currentIndex(i) ? 'CircleMinusIcon' : 'CirclePlusIcon'"
+                    :is="currentIndex(i) ? CircleMinusIcon : CirclePlusIcon"
                     class="w-6 h-6 text-primary-600" />
                 </span>
               </button>
             </dt>
             <dd v-show="currentIndex(i)" class="pr-12 mt-2" id="faq-0">
-              <div class="text-base prose text-gray-500" v-html="answer(i)"></div>
+              <div class="text-base prose text-gray-500" v-html="answers[i]"></div>
             </dd>
           </div>
         </dl>
@@ -35,20 +35,13 @@
 </template>
 
 <script setup lang="ts">
+import { CirclePlusIcon, CircleMinusIcon } from 'vue-tabler-icons'
 import { marked } from 'marked'
 import sanitizeHtml from 'sanitize-html'
 
-type FAQ = {
-  question: string
-  answer: string
-}
+const answers = ref<string[]>([])
 
-const props = defineProps({
-  faqs: {
-    type: Array<FAQ>,
-    required: true,
-  },
-})
+const props = defineProps(['faqs'])
 
 const current = ref(0)
 
@@ -64,4 +57,10 @@ const currentIndex = (i: number) => {
 const answer = async (i: number) => {
   return sanitizeHtml(await marked.parse(props.faqs[i].answer))
 }
+
+onMounted(() => {
+  props.faqs.forEach(async (faq: any, i: number) => {
+    answers.value[i] = await answer(i)
+  })
+})
 </script>
