@@ -5,7 +5,7 @@
     <div class="py-12 mx-12 sm:px-6 lg:py-16 lg:px-8">
       <div class="xl:grid xl:grid-cols-3 xl:gap-8">
         <div class="space-y-8 mt-14 sm:mt-0 xl:col-span-1">
-          <img class="h-14" src="~/assets/media/img/logo.svg" alt="Company name" />
+          <img class="h-14" src="~/assets/media/img/logo.svg" alt="An-nadaa Logo" />
           <p class="text-base text-gray-200">Educate. Empower. Improve</p>
         </div>
         <div class="grid grid-cols-2 gap-8 mt-12 xl:mt-0 xl:col-span-2">
