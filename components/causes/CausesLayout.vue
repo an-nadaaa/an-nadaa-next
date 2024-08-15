@@ -519,7 +519,7 @@ const QUERY_SIZE = ref(PAGINATION_SIZE)
 onMounted(() => {
   loading.value = true
   cards.value = props.initialCauses
-  paginationData.value = props.initialPaginationData
+  paginationData.value = props.initialPaginationData.pagination
   switch (route.query.s) {
     case 'c':
       currentTab.value = 'Campaigns'
@@ -579,8 +579,6 @@ async function populateCards() {
   }).then(async (res) => {
     if (res.ok) {
       let { data, meta } = await res.json()
-      console.log(data)
-      // console.log(meta)
 
       if (currentTab.value !== 'All') {
         data = data.filter((item: any) => item.__component === `causes.${currentTab.value.toLowerCase()}`)
