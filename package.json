@@ -39,8 +39,10 @@
     "mitt": "^3.0.1",
     "qs": "^6.12.3",
     "sanitize-html": "2.7.0",
+    "vue-easy-lightbox": "^1.19.0",
     "vue-spinner": "^1.0.4",
     "vue-tabler-icons": "^2.21.0",
-    "vue-tippy": "v4"
+    "vue-tippy": "v6",
+    "vue3-spinners": "^1.2.2"
   }
 }
