@@ -176,13 +176,18 @@
                 </div>
                 <!-- Gallery -->
                 <div>
-                  <!-- <CoolLightBox :items="images" :index="index" :useZoomBar="true" @close="index = null" /> -->
+                  <VueEasyLightbox :visible="lightboxVisible" :imgs="images" :index="index" @hide="onHide" />
                   <div class="flex px-6 py-1 overflow-y-scroll">
                     <div
                       class="h-40 mx-[2px] aspect-square cursor-pointer bg-cover bg-center"
                       v-for="(image, imageIndex) in images"
                       :key="imageIndex"
-                      @click="index = imageIndex"
+                      @click="
+                        () => {
+                          index = imageIndex
+                          lightboxVisible = true
+                        }
+                      "
                       :style="{ backgroundImage: 'url(' + image.thumb + ')' }"></div>
                   </div>
                 </div>
@@ -255,6 +260,8 @@ import { LockIcon, LockOpenIcon } from 'vue-tabler-icons'
 import { marked } from 'marked'
 import sanitizeHtml from 'sanitize-html'
 import { ArrowNarrowRightIcon, InfoCircleIcon } from 'vue-tabler-icons'
+import VueEasyLightbox from 'vue-easy-lightbox'
+import 'vue-easy-lightbox/external-css/vue-easy-lightbox.css'
 import 'tippy.js/themes/light.css'
 import 'tippy.js/themes/light-border.css'
 // import 'tippy.js/themes/google.css'
@@ -276,6 +283,10 @@ const amount = ref(0)
 const loading = ref(false)
 const index = ref<any>(null)
 const checkoutRef = ref<any>(null)
+const lightboxVisible = ref(false)
+const onHide = () => {
+  lightboxVisible.value = false
+}
 
 const causeQuery = qs.stringify(
   {
