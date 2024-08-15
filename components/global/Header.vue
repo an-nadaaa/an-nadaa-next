@@ -136,7 +136,7 @@
         To: "opacity-0 scale-95"
     -->
     <div v-if="mobileToggle" class="absolute inset-x-0 top-0 p-2 transition origin-top-right transform md:hidden">
-      <div class="bg-white divide-y-2 rounded-lg shadow-lg ring-1 ring-black ring-opacity-5 divide-gray-50">
+      <div class="bg-white rounded-lg shadow-lg ring-1 ring-black ring-opacity-5">
         <div class="px-5 pt-5 pb-6">
           <div class="flex items-center justify-between">
             <div class="cursor-pointer">
@@ -166,51 +166,54 @@
           </div>
           <div class="mt-6">
             <nav class="grid gap-6">
-              <NuxtLink :to="localePath('/causes?s=c')" class="flex items-center p-3 -m-3 rounded-lg hover:bg-gray-50">
+              <NuxtLink :to="localePath('/causes')" class="flex items-center p-3 -m-3 rounded-lg hover:bg-gray-50">
                 <div
                   class="flex items-center justify-center flex-shrink-0 w-10 h-10 text-white rounded-md bg-primary-500">
                   <!-- Heroicon name: outline/chart-bar -->
                   <svg
-                    class="w-6 h-6"
-                    xmlns="http://www.w3.org/2000/svg"
-                    fill="none"
+                    class="px-1"
+                    width="800px"
+                    height="800px"
                     viewBox="0 0 24 24"
-                    stroke="currentColor"
-                    aria-hidden="true">
+                    fill="none"
+                    xmlns="http://www.w3.org/2000/svg">
                     <path
+                      d="M16 6.27975C16 6.88118 15.7625 7.45883 15.3383 7.88611C14.3619 8.87007 13.415 9.89605 12.4021 10.8443C12.17 11.0585 11.8017 11.0507 11.5795 10.8268L8.6615 7.88611C7.7795 6.99725 7.7795 5.56225 8.6615 4.67339C9.55218 3.77579 11.0032 3.77579 11.8938 4.67339L11.9999 4.78027L12.1059 4.67345C12.533 4.24286 13.1146 4 13.7221 4C14.3297 4 14.9113 4.24284 15.3383 4.67339C15.7625 5.10073 16 5.67835 16 6.27975Z"
+                      stroke="#fff"
+                      stroke-width="1.5"
+                      stroke-linejoin="round" />
+                    <path
+                      d="M18 20L21.8243 16.1757C21.9368 16.0632 22 15.9106 22 15.7515V10.5C22 9.67157 21.3284 9 20.5 9V9C19.6716 9 19 9.67157 19 10.5V15"
+                      stroke="#fff"
+                      stroke-width="1.5"
                       stroke-linecap="round"
-                      stroke-linejoin="round"
-                      stroke-width="2"
-                      d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" />
+                      stroke-linejoin="round" />
+                    <path
+                      d="M18 16L18.8581 15.1419C18.949 15.051 19 14.9278 19 14.7994V14.7994C19 14.6159 18.8963 14.4482 18.7322 14.3661L18.2893 14.1447C17.5194 13.7597 16.5894 13.9106 15.9807 14.5193L15.0858 15.4142C14.7107 15.7893 14.5 16.298 14.5 16.8284V20"
+                      stroke="#fff"
+                      stroke-width="1.5"
+                      stroke-linecap="round"
+                      stroke-linejoin="round" />
+                    <path
+                      d="M6 20L2.17574 16.1757C2.06321 16.0632 2 15.9106 2 15.7515V10.5C2 9.67157 2.67157 9 3.5 9V9C4.32843 9 5 9.67157 5 10.5V15"
+                      stroke="#fff"
+                      stroke-width="1.5"
+                      stroke-linecap="round"
+                      stroke-linejoin="round" />
+                    <path
+                      d="M6 16L5.14187 15.1419C5.05103 15.051 5 14.9278 5 14.7994V14.7994C5 14.6159 5.10366 14.4482 5.26776 14.3661L5.71067 14.1447C6.48064 13.7597 7.41059 13.9106 8.01931 14.5193L8.91421 15.4142C9.28929 15.7893 9.5 16.298 9.5 16.8284V20"
+                      stroke="#fff"
+                      stroke-width="1.5"
+                      stroke-linecap="round"
+                      stroke-linejoin="round" />
                   </svg>
                 </div>
-                <div class="ml-4 text-base font-medium text-gray-900">Campaigns</div>
-              </NuxtLink>
-
-              <NuxtLink :to="localePath('/causes?s=p')" class="flex items-center p-3 -m-3 rounded-lg hover:bg-gray-50">
-                <div
-                  class="flex items-center justify-center flex-shrink-0 w-10 h-10 text-white rounded-md bg-primary-500">
-                  <!-- Heroicon name: outline/cursor-click -->
-                  <svg
-                    class="w-6 h-6"
-                    xmlns="http://www.w3.org/2000/svg"
-                    fill="none"
-                    viewBox="0 0 24 24"
-                    stroke="currentColor"
-                    aria-hidden="true">
-                    <path
-                      stroke-linecap="round"
-                      stroke-linejoin="round"
-                      stroke-width="2"
-                      d="M15 15l-2 5L9 9l11 4-5 2zm0 0l5 5M7.188 2.239l.777 2.897M5.136 7.965l-2.898-.777M13.95 4.05l-2.122 2.122m-5.657 5.656l-2.12 2.122" />
-                  </svg>
-                </div>
-                <div class="ml-4 text-base font-medium text-gray-900">Projects</div>
+                <div class="ml-4 text-base font-medium text-gray-900">Causes</div>
               </NuxtLink>
             </nav>
           </div>
         </div>
-        <div class="px-5 py-6">
+        <div class="px-5 py-6 pt-2">
           <div class="grid grid-cols-2 gap-4">
             <NuxtLink :to="localePath('/')" class="text-base font-medium text-gray-900 hover:text-gray-700">
               Home
