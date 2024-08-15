@@ -32,8 +32,7 @@ const props = defineProps({
     required: true,
   },
   showPlayer: {
-    type: Object,
-    required: true,
+    required: false,
   },
 })
 

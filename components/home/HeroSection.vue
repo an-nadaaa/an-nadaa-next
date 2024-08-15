@@ -3,7 +3,7 @@
     <div v-show="!showPlayer" class="w-full pt-16 pb-20 mx-auto text-center lg:mx-24 max-w-7xl lg:py-48 lg:text-left">
       <div class="px-4 lg:w-1/2 sm:px-8 xl:pr-16">
         <h1 class="text-4xl text-white font-headers sm:text-5xl md:text-6xl xl:text-7xl">
-          <span class="block xl:inline">Build your</span>
+          <span class="block xl:inline">Build your </span>
           <span class="block xl:inline">Hereafter today</span>
         </h1>
         <p class="max-w-md mx-auto mt-3 text-lg text-gray-100 sm:text-xl md:mt-5 md:max-w-3xl">
@@ -30,7 +30,12 @@
         </div>
       </div>
     </div>
-    <VideoPlayer v-show="showPlayer" :showPlayer="showPlayer" :videoLocation="videoLocation" :videoCover="videoCover" />
+    <VideoPlayer
+      :collapsible="true"
+      v-show="showPlayer"
+      :showPlayer="showPlayer"
+      :videoLocation="videoLocation"
+      :videoCover="videoCover" />
   </section>
 </template>
 <script setup>

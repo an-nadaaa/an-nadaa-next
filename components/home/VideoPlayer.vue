@@ -1,7 +1,8 @@
 <template>
-  <div class="w-full mx-auto">
+  <div class="w-full relative mx-auto">
     <ClientOnly>
       <XIcon
+        v-if="props.collapsible"
         @click="closePlayer"
         class="absolute left-0 z-50 w-10 h-10 m-3 text-gray-400 cursor-pointer hover:text-gray-500" />
 
@@ -19,8 +20,7 @@ const emitter = useEmitter()
 
 const props = defineProps({
   showPlayer: {
-    type: Object,
-    required: true,
+    required: false,
   },
   videoLocation: {
     type: String,
@@ -29,6 +29,11 @@ const props = defineProps({
   videoCover: {
     type: String,
     required: false,
+  },
+  collapsible: {
+    type: Boolean,
+    required: false,
+    default: false,
   },
 })
 

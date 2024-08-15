@@ -4,10 +4,6 @@
     :categories="categories"
     :initialCauses="causes?.data"
     :initialPaginationData="causes?.meta" />
-  <!-- <h1>HELLO</h1>
-  <button @mouseover="callApi">Click me</button>
-
-  <p>{{ causes }}</p> -->
 </template>
 
 <script setup lang="ts">
@@ -15,9 +11,10 @@ import qs from 'qs'
 
 const route = useRoute()
 const runtimeConfig = useRuntimeConfig()
+const emitter = useEmitter()
 
-const STRAPI_API =
-  process.env.NODE_ENV === 'development' ? runtimeConfig.public.STRAPI_API : 'http://localhost:5000/api'
+// todo: make sure to change back to production
+const STRAPI_API = runtimeConfig.public.STRAPI_API
 const STRAPI_API_KEY = runtimeConfig.public.STRAPI_API_KEY
 const PAGINATION_SIZE = 12
 const { locale } = useI18n()
@@ -155,17 +152,14 @@ const { data: tags } = await useAsyncData('tags', () =>
       'Content-Type': 'application/json',
       Authorization: `Bearer ${STRAPI_API_KEY}`,
     },
-  })
-    .then(async (res) => {
-      if (res.ok) {
-        const response = await res.json()
+  }).then(async (res) => {
+    if (res.ok) {
+      const response = await res.json()
 
-        return response.data
-      } else throw new Error('Error fetching Tags')
-    })
-    .catch((err) => {
-      console.error(err)
-    }),
+      return response.data
+    }
+    emitter.emit('error', 'Error fetching Tags')
+  }),
 )
 
 const { data: categories } = await useAsyncData('categories', () =>
@@ -174,17 +168,15 @@ const { data: categories } = await useAsyncData('categories', () =>
       'Content-Type': 'application/json',
       Authorization: `Bearer ${STRAPI_API_KEY}`,
     },
-  })
-    .then(async (res) => {
-      if (res.ok) {
-        const response = await res.json()
+  }).then(async (res) => {
+    if (res.ok) {
+      const response = await res.json()
 
-        return response.data
-      } else throw new Error('Error fetching Categories')
-    })
-    .catch((err) => {
-      console.error(err)
-    }),
+      return response.data
+    }
+
+    emitter.emit('error', 'Error fetching Categories')
+  }),
 )
 
 const { data: causes } = await useAsyncData(
@@ -195,19 +187,17 @@ const { data: causes } = await useAsyncData(
         'Content-Type': 'application/json',
         Authorization: `Bearer ${STRAPI_API_KEY}`,
       },
-    })
-      .then(async (res) => {
-        if (res.ok) {
-          const response = await res.json()
+    }).then(async (res) => {
+      if (res.ok) {
+        const response = await res.json()
 
-          // console.log(response)
+        // console.log(response)
 
-          return response
-        } else throw new Error('No causes found')
-      })
-      .catch((err) => {
-        console.error(err)
-      }),
+        return response
+      }
+
+      emitter.emit('error', 'No causes found')
+    }),
 )
 
 useHead({

@@ -270,9 +270,10 @@ const runtimeConfig = useRuntimeConfig()
 const route = useRoute()
 const router = useRouter()
 const { locale } = useI18n()
-const STRAPI_API = process.env.NODE_ENV === 'production' ? runtimeConfig.public.STRAPI_API : 'http://localhost:5000/api'
+// todo: change to production
+const STRAPI_API = runtimeConfig.public.STRAPI_API
 const STRAPI_API_KEY = runtimeConfig.public.STRAPI_API_KEY
-
+// todo: change to production
 const pk =
   process.env.NODE_ENV === 'production' ? runtimeConfig.public.STRIPE_PK_PROD : runtimeConfig.public.STRIPE_PK_DEV
 const sessionId = ref('session_id')
@@ -319,12 +320,13 @@ const { error } = await useFetch(`${STRAPI_API}/causes/${route.params.id}?locale
   },
 })
 
-// if (error.value) {
-//   throw createError({
-//     statusCode: 404,
-//     statusMessage: 'Campaign not found',
-//   })
-// }
+if (error.value) {
+  throw createError({
+    statusCode: 404,
+    statusMessage: 'Campaign not found',
+    fatal: true,
+  })
+}
 
 // const { data: cause } = await useAsyncData('cause', () =>
 //   fetch(`${STRAPI_API}/causes/${route.params.id}?locale=${locale.value}&${causeQuery}`, {
