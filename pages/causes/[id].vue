@@ -121,11 +121,7 @@
                         ? 'bg-gray-300 text-gray-600'
                         : 'text-white bg-primary-600 hover:bg-primary-800 focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-primary-700'
                     }`">
-                    <VueSpinnerOrbit
-                      class="absolute left-0 ml-4"
-                      v-if="loading"
-                      color="#fff"
-                      size="30px"></VueSpinnerOrbit>
+                    <MoonLoader class="absolute left-0 ml-4" :loading="loading" color="#fff" size="30px"></MoonLoader>
                     <div class="mx-auto">Donate</div>
                   </button>
                 </div>
@@ -234,7 +230,7 @@
                 ? 'bg-gray-300 text-gray-600'
                 : 'text-white bg-primary-600 hover:bg-primary-800 focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-primary-700'
             }`">
-            <VueSpinnerOrbit class="absolute left-0 ml-4" v-if="loading" color="#fff" size="30px"></VueSpinnerOrbit>
+            <MoonLoader class="absolute left-0 ml-4" :loading="loading" color="#fff" size="30px"></MoonLoader>
             <div class="mx-auto">Donate</div>
           </button>
         </div>
@@ -254,8 +250,7 @@
 <script setup lang="ts">
 import qs from 'qs'
 import { CURRENCY_NAME } from '~/config/config'
-// import MoonLoader from 'vue-spinner/src/MoonLoader.vue'
-import { VueSpinnerOrbit } from 'vue3-spinners'
+import MoonLoader from 'vue-spinner/src/MoonLoader.vue'
 import { LockIcon, LockOpenIcon } from 'vue-tabler-icons'
 import { marked } from 'marked'
 import sanitizeHtml from 'sanitize-html'

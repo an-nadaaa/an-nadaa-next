@@ -366,7 +366,7 @@
                   : 'grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3 auto-rows-min'
               }`">
               <!-- Replace with your content -->
-              <VueSpinner class="mx-auto" v-if="loading" :loading="loading" color="#06b6d4" size="60px" />
+              <BounceLoader class="mx-auto" v-if="loading" :loading="loading" color="#06b6d4" size="60px" />
 
               <CauseCard v-else v-for="card in cards" :key="card.id" :cause="card" />
 
@@ -431,8 +431,7 @@
 
 <script setup lang="ts">
 import { XIcon, ChevronDownIcon, PlusIcon, MinusIcon, LayoutGridIcon, FilterIcon } from 'vue-tabler-icons'
-// import BounceLoader from 'vue-spinner/src/BounceLoader.vue'
-import { VueSpinner } from 'vue3-spinners'
+import BounceLoader from 'vue-spinner/src/BounceLoader.vue'
 import qs from 'qs'
 
 const { locale, defaultLocale } = useI18n()
