@@ -253,7 +253,7 @@
           <div class="grid grid-cols-1 lg:grid-cols-4 gap-x-8 gap-y-10">
             <!-- Filters -->
             <div class="hidden lg:block">
-              <h2 class="sr-only">Types</h2>
+              <!-- <h2 class="sr-only">Types</h2>
               <ul role="list" class="pb-6 text-sm font-medium text-gray-900 border-b border-gray-200">
                 <li
                   :class="`rounded-md p-4 text-lg ${
@@ -265,7 +265,7 @@
                   :key="i">
                   <button @click="selectTab(tab)">{{ tab }}</button>
                 </li>
-              </ul>
+              </ul> -->
 
               <div class="py-6 border-b border-gray-200">
                 <h2 @click="expandTags = !expandTags" class="flow-root -my-3">
@@ -437,6 +437,7 @@ import qs from 'qs'
 const { locale, defaultLocale } = useI18n()
 const runtimeConfig = useRuntimeConfig()
 const route = useRoute()
+const router = useRouter()
 // const = useLocaleLocation()
 
 const PAGINATION_SIZE = 12
@@ -501,8 +502,8 @@ const sortFilters = ref([
 const sortFilterSelected = ref(0)
 const tagsSelected = ref<Array<any>>([])
 const categoriesSelected = ref([])
-const expandTags = ref(false)
-const expandCategories = ref(false)
+const expandTags = ref(true)
+const expandCategories = ref(true)
 const showMenu = ref(false)
 const showSortMenu = ref(false)
 const loading = ref(true)
@@ -519,7 +520,6 @@ onMounted(() => {
   loading.value = true
   cards.value = props.initialCauses
   paginationData.value = props.initialPaginationData
-
   switch (route.query.s) {
     case 'c':
       currentTab.value = 'Campaigns'
@@ -558,14 +558,14 @@ function selectTab(tab: string) {
   //     },
   //   }),
   // )
-  // router.replace(
-  //   localeLocation({
-  //     path: '/causes',
-  //     query: {
-  //       s: tab === 'All' ? '' : tab.toLowerCase()[0],
-  //     },
-  //   }),
-  // )
+  router.replace(
+    localeLocation({
+      path: '/causes',
+      query: {
+        s: tab === 'All' ? '' : tab.toLowerCase()[0],
+      },
+    }),
+  )
 }
 
 async function populateCards() {
@@ -578,9 +578,13 @@ async function populateCards() {
     },
   }).then(async (res) => {
     if (res.ok) {
-      const { data, meta } = await res.json()
-      // console.log(data)
+      let { data, meta } = await res.json()
+      console.log(data)
       // console.log(meta)
+
+      if (currentTab.value !== 'All') {
+        data = data.filter((item: any) => item.__component === `causes.${currentTab.value.toLowerCase()}`)
+      }
 
       cards.value = data as Array<any>
       paginationData.value = meta.pagination
