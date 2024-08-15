@@ -254,7 +254,6 @@
 
 <script setup lang="ts">
 import qs from 'qs'
-import { CURRENCY_NAME } from '~/config/config'
 import MoonLoader from 'vue-spinner/src/MoonLoader.vue'
 import { LockIcon, LockOpenIcon } from 'vue-tabler-icons'
 import { marked } from 'marked'
@@ -267,6 +266,7 @@ import 'tippy.js/themes/light-border.css'
 // import 'tippy.js/themes/google.css'
 import 'tippy.js/themes/translucent.css'
 
+const CURRENCY_NAME = useAppConfig().currencyName
 const localePath = useLocalePath()
 const runtimeConfig = useRuntimeConfig()
 const route = useRoute()

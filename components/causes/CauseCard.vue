@@ -85,7 +85,6 @@
 </template>
 
 <script setup lang="ts">
-import { CURRENCY_NAME } from '~/config/config'
 import { InfoCircleIcon } from 'vue-tabler-icons'
 import { onMounted } from 'vue'
 import 'tippy.js/themes/light.css'
@@ -94,6 +93,7 @@ import 'tippy.js/themes/light-border.css'
 import 'tippy.js/themes/translucent.css'
 import { computed } from 'vue'
 
+const CURRENCY_NAME = useAppConfig().currencyName
 const localePath = useLocalePath()
 
 const props = defineProps({
