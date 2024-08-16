@@ -253,7 +253,7 @@
           <div class="grid grid-cols-1 lg:grid-cols-4 gap-x-8 gap-y-10">
             <!-- Filters -->
             <div class="hidden lg:block">
-              <h2 class="sr-only">Types</h2>
+              <!-- <h2 class="sr-only">Types</h2>
               <ul role="list" class="pb-6 text-sm font-medium text-gray-900 border-b border-gray-200">
                 <li
                   :class="`rounded-md p-4 text-lg ${
@@ -265,7 +265,7 @@
                   :key="i">
                   <button @click="selectTab(tab)">{{ tab }}</button>
                 </li>
-              </ul>
+              </ul> -->
 
               <div class="py-6 border-b border-gray-200">
                 <h2 @click="expandTags = !expandTags" class="flow-root -my-3">
@@ -367,6 +367,7 @@
               }`">
               <!-- Replace with your content -->
               <BounceLoader class="mx-auto" v-if="loading" :loading="loading" color="#06b6d4" size="60px" />
+
               <CauseCard v-else v-for="card in cards" :key="card.id" :cause="card" />
 
               <!-- /End replace -->
@@ -433,11 +434,17 @@ import { XIcon, ChevronDownIcon, PlusIcon, MinusIcon, LayoutGridIcon, FilterIcon
 import BounceLoader from 'vue-spinner/src/BounceLoader.vue'
 import qs from 'qs'
 
+const { locale, defaultLocale } = useI18n()
+const runtimeConfig = useRuntimeConfig()
+const route = useRoute()
 const router = useRouter()
 // const = useLocaleLocation()
 
 const PAGINATION_SIZE = 12
-const STRAPI_API = process.env.NODE_ENV === 'production' ? process.env.STRAPI_API : 'http://localhost:5000/api'
+
+// todo: make sure to change back to production
+const STRAPI_API = runtimeConfig.public.STRAPI_API
+const STRAPI_API_KEY = runtimeConfig.public.STRAPI_API_KEY
 
 type Tag = {
   attributes: {
@@ -479,10 +486,8 @@ const props = defineProps({
   },
 })
 
-// const tabs = ['All', 'Campaigns', 'Projects']
+const tabs = ['All', 'Campaigns', 'Projects']
 // const currentTab = 'All'
-
-const tabs = ref(['All', 'Campaigns', 'Projects'])
 const currentTab = ref('All')
 const sortFilters = ref([
   {
@@ -497,8 +502,8 @@ const sortFilters = ref([
 const sortFilterSelected = ref(0)
 const tagsSelected = ref<Array<any>>([])
 const categoriesSelected = ref([])
-const expandTags = ref(false)
-const expandCategories = ref(false)
+const expandTags = ref(true)
+const expandCategories = ref(true)
 const showMenu = ref(false)
 const showSortMenu = ref(false)
 const loading = ref(true)
@@ -514,82 +519,75 @@ const QUERY_SIZE = ref(PAGINATION_SIZE)
 onMounted(() => {
   loading.value = true
   cards.value = props.initialCauses
-  paginationData.value = props.initialPaginationData
+  paginationData.value = props.initialPaginationData.pagination
+  switch (route.query.s) {
+    case 'c':
+      currentTab.value = 'Campaigns'
+      break
+    case 'p':
+      currentTab.value = 'Projects'
+      break
+    default:
+      currentTab.value = 'All'
+      break
+  }
   loading.value = false
 })
 
-function selectedTab(tab: any) {
+function selectedTab(tab: string) {
   return currentTab.value === tab
 }
 
-// localeLocatio
+function localeLocation(location: { path: string; query: Record<string, any> }) {
+  const currentLocale = locale.value // Get the current locale
+  // Assume locale is a prefix in the path like '/en/causes'
+  return {
+    ...location,
+    path: `${currentLocale === defaultLocale ? '' : `/${currentLocale}`}${location.path}`,
+  }
+}
 
-// const localeLocation = useLocaleLocation()
-// localeLocation()
+function selectTab(tab: string) {
+  currentTab.value = tab
 
-// useLocaleLocation(
-
-// const localeLocation = useLocaleLocation()
-
-function selectTab(tab: any) {
-  console.log(tab)
-
-  // router.replace(
-
-  // )
-
-  return
-
-  // todo: fix localeLocation
-
-  // router.replace(
+  // router.push(
   //   localeLocation({
-  //     path: "/causes",
+  //     path: '/causes',
   //     query: {
-  //       s: tab === "All" ? "" : tab.toLowerCase()[0],
+  //       s: tab === 'All' ? '' : tab.toLowerCase()[0],
   //     },
-  //   }) as RouteLocationRaw
+  //   }),
   // )
+  router.replace(
+    localeLocation({
+      path: '/causes',
+      query: {
+        s: tab === 'All' ? '' : tab.toLowerCase()[0],
+      },
+    }),
+  )
 }
 
 async function populateCards() {
   loading.value = true
-  // const that = this
-  // await this.$axios
-  //   .$get(`${STRAPI_API}/causes?locale=${useI18n().locale.value}&${this.query}`, {
-  //     headers: {
-  //       "Content-Type": "application/json",
-  //       Authorization: `Bearer ${process.env.STRAPI_API_KEY}`,
-  //     },
-  //   })
-  //   .then(({ data, meta }: { data: any; meta: any }) => {
-  //     that.cards = data
-  //     that.paginationData = meta.pagination
-  //   })
 
-  // const locale = useLocaleLocation()
+  await fetch(`${STRAPI_API}/causes?locale=${locale.value}&${query.value}`, {
+    headers: {
+      'Content-Type': 'application/json',
+      Authorization: `Bearer ${STRAPI_API_KEY}`,
+    },
+  }).then(async (res) => {
+    if (res.ok) {
+      let { data, meta } = await res.json()
 
-  // locale()?.toString
-
-  // localeHead()
-
-  await useAsyncData('get', () =>
-    fetch(`${STRAPI_API}/causes?locale=${useI18n().locale.value}&${useRoute().query}`, {
-      headers: {
-        'Content-Type': 'application/json',
-        Authorization: `Bearer ${process.env.STRAPI_API_KEY}`,
-      },
-    }).then(async (res) => {
-      if (res.ok) {
-        // return res.json()
-        const { data, meta } = await res.json()
-        cards.value = data as Array<any>
-        paginationData.value = meta.pagination
-
-        // paginationData.value =
+      if (currentTab.value !== 'All') {
+        data = data.filter((item: any) => item.__component === `causes.${currentTab.value.toLowerCase()}`)
       }
-    })
-  )
+
+      cards.value = data as Array<any>
+      paginationData.value = meta.pagination
+    }
+  })
 
   loading.value = false
 }
@@ -637,7 +635,7 @@ const query = computed(() => {
           $eq: false,
         },
         // conditionally add campaign or project filter based on query params
-        // ...(this.$route.query.s === 'c'
+        // ...(currentTab.value === 'Campaigns'
         //   ? {
         //       dynamicZone: {
         //         __component: {
@@ -645,15 +643,15 @@ const query = computed(() => {
         //         },
         //       },
         //     }
-        //   : this.$route.query.s === 'p'
-        //   ? {
-        //       dynamicZone: {
-        //         __component: {
-        //           $eq: 'causes.project',
+        //   : route.query.s === 'Projects'
+        //     ? {
+        //         dynamicZone: {
+        //           __component: {
+        //             $eq: 'causes.project',
+        //           },
         //         },
-        //       },
-        //     }
-        //   : {}),
+        //       }
+        //     : {}),
         // conditionally add tags filter if there are any selected
         ...(tagsSelected.value.length > 0
           ? {
@@ -680,24 +678,24 @@ const query = computed(() => {
     },
     {
       encodeValuesOnly: true,
-    }
+    },
   )
 })
 
 watch(currentTab, async () => {
-  await populateCards()
+  populateCards()
 })
 
 watch(sortFilterSelected, async () => {
-  await populateCards()
+  populateCards()
 })
 
 watch(tagsSelected, async () => {
-  await populateCards()
+  populateCards()
 })
 
 watch(categoriesSelected, async () => {
-  await populateCards()
+  populateCards()
 })
 
 // export default {

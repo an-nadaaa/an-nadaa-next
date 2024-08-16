@@ -1,7 +1,18 @@
 <template>
   <div>
-    <Player playsinline ref="player" @vm-buffered-change="play" @vm-playback-ended="closePlayer" :style="styles">
-      <Video :poster="props.videoCover">
+    <Player
+      playsinline
+      ref="player"
+      @vm-buffered-change="
+        () => {
+          if (props.provider !== 'Youtube') play()
+        }
+      "
+      @vm-playback-ready="play"
+      @vm-playback-ended="closePlayer"
+      :style="styles">
+      <Youtube v-if="provider === 'Youtube'" :videoId="props.videoId" />
+      <Video v-else :poster="props.videoCover">
         <source :data-src="props.videoLocation" type="video/mp4" />
       </Video>
 
@@ -10,7 +21,7 @@
   </div>
 </template>
 <script setup lang="ts">
-import { Player, Video, DefaultUi } from '@vime/vue-next'
+import { Player, Video, DefaultUi, Youtube } from '@vime/vue-next'
 // import video from '~/assets/media/video/What-Is-An-Nadaa.mp4'
 // import videoCover from '~/assets/media/img/VideoCover.png'
 import '@vime/core/themes/default.css'
@@ -22,18 +33,26 @@ const props = defineProps({
     required: false,
     default: true,
   },
+  videoLocation: {
+    type: String,
+    required: true,
+  },
+  provider: {
+    type: String,
+    required: true,
+  },
   videoCover: {
     type: String,
     required: false,
     default: null,
   },
-  videoLocation: {
-    type: String,
-    required: true,
-  },
   showPlayer: {
-    type: Object,
-    required: true,
+    required: false,
+  },
+  videoId: {
+    type: String,
+    required: false,
+    default: '',
   },
 })
 
@@ -55,7 +74,6 @@ function closePlayer() {
 }
 
 function play() {
-  if (!props.autoplay) return
   if (props.autoplay && firstLoad.value) {
     setTimeout(() => {
       player.value?.play()
@@ -73,7 +91,9 @@ watch(showPlayer, (val) => {
   }
   if (firstLoad.value) {
     return
-  } else player.value?.play()
+  } else {
+    player.value?.play()
+  }
 })
 </script>
 <style></style>

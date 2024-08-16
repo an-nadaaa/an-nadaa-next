@@ -18,9 +18,8 @@
 <script setup lang="ts">
 import qs from 'qs'
 
-const STRAPI_API =
-  process.env.NODE_ENV === 'production' ? useRuntimeConfig().public.STRAPI_API : 'http://localhost:5000/api'
-// const STRAPI_API = 'https://api.an-nadaa.com/api'
+const emitter = useEmitter()
+const STRAPI_API = useRuntimeConfig().public.STRAPI_API
 const sortBy = {
   key: 'date',
   direction: 'dec',
@@ -105,6 +104,7 @@ const featuredQuery = qs.stringify(
     encodeValuesOnly: true,
   },
 )
+
 const { data: causes } = await useAsyncData('causes', async () =>
   fetch(`${STRAPI_API}/causes?locale=${locale.value}&${causeQuery}`, {
     headers: {
@@ -180,8 +180,8 @@ const { data: metrics } = await useAsyncData('metrics', async () => {
     return await queryContent('metrics', locale.value)
       .sort({ [sortBy.key]: sortBy.direction })
       .find()
-  } catch (err) {
-    throw createError({ statusCode: 404, message: 'No Metrics to display' })
+  } catch (err: any) {
+    emitter.emit('error', err.message)
   }
 })
 
@@ -190,8 +190,8 @@ const { data: testimonials } = await useAsyncData('testimonials', async () => {
     return await queryContent('testimonials', locale.value)
       .sort({ [sortBy.key]: sortBy.direction })
       .find()
-  } catch (err) {
-    throw createError({ statusCode: 404, message: 'No Testimonials to display' })
+  } catch (err: any) {
+    emitter.emit('error', err.message)
   }
 })
 
@@ -200,8 +200,8 @@ const { data: faqs } = await useAsyncData('faqs', async () => {
     return await queryContent('faq', locale.value)
       .sort({ [sortBy.key]: sortBy.direction })
       .find()
-  } catch (err) {
-    throw createError({ statusCode: 404, message: 'No FAQs to display' })
+  } catch (err: any) {
+    emitter.emit('error', err.message)
   }
 })
 

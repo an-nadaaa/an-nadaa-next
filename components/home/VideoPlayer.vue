@@ -1,12 +1,19 @@
 <template>
-  <div class="w-full mx-auto">
+  <div class="w-full relative mx-auto">
     <ClientOnly>
       <XIcon
+        v-if="props.collapsible"
         @click="closePlayer"
         class="absolute left-0 z-50 w-10 h-10 m-3 text-gray-400 cursor-pointer hover:text-gray-500" />
 
       <!-- todo: Figure out why it has to be imported as child component or else it doesnt work-->
-      <Video :show-player="showPlayer" :video-location="props.videoLocation" :video-cover="props.videoCover"></Video>
+      <Video
+        :provider="provider"
+        :show-player="showPlayer"
+        :video-location="props.videoLocation"
+        :video-cover="props.videoCover"
+        :video-id="videoID"
+        :autoplay="autoplay"></Video>
     </ClientOnly>
   </div>
 </template>
@@ -19,8 +26,7 @@ const emitter = useEmitter()
 
 const props = defineProps({
   showPlayer: {
-    type: Object,
-    required: true,
+    required: false,
   },
   videoLocation: {
     type: String,
@@ -29,6 +35,16 @@ const props = defineProps({
   videoCover: {
     type: String,
     required: false,
+  },
+  collapsible: {
+    type: Boolean,
+    required: false,
+    default: false,
+  },
+  autoplay: {
+    type: Boolean,
+    required: false,
+    default: true,
   },
 })
 
@@ -56,6 +72,7 @@ onBeforeMount(() => {
     provider.value = 'Video'
   } else if (youtubeRegex.test(props.videoLocation)) {
     provider.value = 'Youtube'
+
     // capture the video id from the regex
     if (props.videoLocation.match(youtubeRegex)) {
       videoID.value = (props.videoLocation.match(youtubeRegex) as RegExpMatchArray)[6]
