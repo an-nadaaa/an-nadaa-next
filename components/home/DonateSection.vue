@@ -93,13 +93,14 @@ const pk = process.env.NODE_ENV === 'production' ? process.env.STRIPE_PK_PROD : 
 const sessionId = ref('session_id')
 const amount = 0
 const loading = ref(false)
+const checkoutRef = ref<any>(null)
 
 async function donate() {
   if (amount >= 1) {
     loading.value = true
     await this.$axios
       .$post(
-        `${process.env.functionBaseUrl}/create-checkout-session?locale=${useI18n().locale.value}&amount=${amount * 100}`
+        `${process.env.functionBaseUrl}/create-checkout-session?locale=${useI18n().locale.value}&amount=${amount * 100}`,
       )
       .then((session: any) => {
         loading.value = false
@@ -109,7 +110,7 @@ async function donate() {
           sessionId: session.id,
         })
         // You will be redirected to Stripe's secure checkout page
-        return this.$refs.checkoutRef.redirectToCheckout()
+        return checkoutRef.value?.redirectToCheckout()
       })
   }
 }
