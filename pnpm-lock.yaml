@@ -35,6 +35,9 @@ dependencies:
   sanitize-html:
     specifier: 2.7.0
     version: 2.7.0
+  stripe:
+    specifier: ^16.8.0
+    version: 16.8.0
   vue-easy-lightbox:
     specifier: ^1.19.0
     version: 1.19.0(vue@3.4.36)
@@ -58,6 +61,9 @@ devDependencies:
   '@nuxtjs/tailwindcss':
     specifier: ^6.11.0
     version: 6.12.1(rollup@4.20.0)
+  '@stripe/stripe-js':
+    specifier: ^4.3.0
+    version: 4.3.0
   '@tailwindcss/forms':
     specifier: ^0.5.7
     version: 0.5.7(tailwindcss@3.4.7)
@@ -97,6 +103,9 @@ devDependencies:
   vue-router:
     specifier: ^4.2.5
     version: 4.4.2(vue@3.4.36)
+  vue-stripe-js:
+    specifier: ^1.0.2
+    version: 1.0.2
 
 packages:
 
@@ -2271,6 +2280,11 @@ packages:
     hasBin: true
     dev: false
 
+  /@stripe/stripe-js@4.3.0:
+    resolution: {integrity: sha512-bf8MxzzgD3dybtyIJUQSDMqxjEkJfsmj9IdRqDv609Zw08R41O7eoIy0f8KY41u8MbaFOYsn+XGJZtg1xwR2wQ==}
+    engines: {node: '>=12.16'}
+    dev: true
+
   /@tailwindcss/forms@0.5.7(tailwindcss@3.4.7):
     resolution: {integrity: sha512-QE7X69iQI+ZXwldE+rzasvbJiyV/ju1FGHH0Qn2W3FKbuYtqp8LKcy6iSw79fVUT5/Vvf+0XgLCeYVG+UV6hOw==}
     peerDependencies:
@@ -2344,7 +2358,6 @@ packages:
     resolution: {integrity: sha512-AOmuRF0R2/5j1knA3c6G3HOk523Ga+l+ZXltX8SF1+5oqcXijjfTd8fY3XRZqSihEu9XhtQnKYLmkFaoxgsJHw==}
     dependencies:
       undici-types: 6.13.0
-    dev: true
 
   /@types/qs@6.9.15:
     resolution: {integrity: sha512-uXHQKES6DQKKCLh441Xv/dwxOq1TVS3JPUMlEqoEglvlhR6Mxnlew/Xq/LRVHpLyk7iK3zODe1qYHIMltO7XGg==}
@@ -7500,6 +7513,14 @@ packages:
     dependencies:
       js-tokens: 9.0.0
 
+  /stripe@16.8.0:
+    resolution: {integrity: sha512-6rOIcGOkxcc29jvhEyOYmpPFilekOBV+7vpemAoIAfbtCRW1yxzdDGM0/0vyekHglLL+wqGpP5ldrhO3dJ2JEQ==}
+    engines: {node: '>=12.*'}
+    dependencies:
+      '@types/node': 22.1.0
+      qs: 6.13.0
+    dev: false
+
   /stylehacks@7.0.2(postcss@8.4.41):
     resolution: {integrity: sha512-HdkWZS9b4gbgYTdMg4gJLmm7biAUug1qTqXjS+u8X+/pUd+9Px1E+520GnOW3rST9MNsVOVpsJG+mPHNosxjOQ==}
     engines: {node: ^18.12.0 || ^20.9.0 || >=22.0}
@@ -7822,7 +7843,6 @@ packages:
 
   /undici-types@6.13.0:
     resolution: {integrity: sha512-xtFJHudx8S2DSoujjMd1WeWvn7KKWFRESZTMeL1RptAYERu29D6jphMjjY+vn96jvN3kVPDNxU/E13VTaXj6jg==}
-    dev: true
 
   /undici@5.28.4:
     resolution: {integrity: sha512-72RFADWFqKmUb2hmmvNODKL3p9hcB6Gt2DOQMis1SEBaV6a4MH8soBvzg+95CYhCKPFedut2JY9bMfrDl9D23g==}
@@ -8369,6 +8389,10 @@ packages:
   /vue-spinner@1.0.4:
     resolution: {integrity: sha512-GNG2F+8BLX201JT/jUX+84Gsi3ZteVQwt9K7mues3ts9FcQ95dGn7uu6a5ndSxdYYUEzfh1KngZiOE0u+l4itA==}
     dev: false
+
+  /vue-stripe-js@1.0.2:
+    resolution: {integrity: sha512-QfS/bAseXHvM/Y1LJyRW97MLZs8tEUzCYbvhWYJbiCxc06Q5mj+oNx7GRKLzkU+1Xe5hIL1EOqAdeuffUYXHww==}
+    dev: true
 
   /vue-tabler-icons@2.21.0:
     resolution: {integrity: sha512-rEZYPd37j1sd/9gBFtC1u8wj3Pz1S3gLP1tgexvnivzQPXphc6M+7XuTSOd7wtdpaLt1sQgDmuQxIgczzrvf0A==}
