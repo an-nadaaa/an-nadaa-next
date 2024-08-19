@@ -27,8 +27,7 @@
     "prettier": "^3.3.3",
     "tailwindcss": "^3.4.7",
     "vue": "^3.4.14",
-    "vue-router": "^4.2.5",
-    "vue-stripe-js": "^1.0.2"
+    "vue-router": "^4.2.5"
   },
   "dependencies": {
     "@egjs/flicking-plugins": "^4.7.1",

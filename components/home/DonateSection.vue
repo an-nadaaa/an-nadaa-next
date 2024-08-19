@@ -69,7 +69,6 @@
                   </div>
                 </div>
                 <div class="mt-4 sm:mt-1 sm:ml-3">
-                  <StripeCheckout ref="checkoutRef" :pk="pk" :session-id="sessionId" />
                   <button
                     type="submit"
                     class="relative flex items-center w-full px-5 py-3 text-base font-medium text-white border border-transparent rounded-md shadow bg-primary-600 hover:bg-primary-800 focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-primary-700 sm:px-10">
@@ -87,15 +86,13 @@
 </template>
 
 <script setup lang="ts">
-import { StripeCheckout } from '@vue-stripe/vue-stripe'
+// import { StripeCheckout } from '@vue-stripe/vue-stripe'
 import MoonLoader from 'vue-spinner/src/MoonLoader.vue'
 
 const runtimeConfig = useRuntimeConfig()
-const pk = runtimeConfig.public.STRIPE_PK
 const sessionId = ref('session_id')
 const amount = ref(0)
 const loading = ref(false)
-const checkoutRef = ref<any>(null)
 const { locale } = useI18n()
 
 async function donate() {
@@ -119,7 +116,13 @@ async function donate() {
         //   causeID: cause.value.id,
         // })
 
-        return checkoutRef.value?.redirectToCheckout()
+        if (session) {
+          await navigateTo(session.url, {
+            open: {
+              target: '_blank',
+            },
+          })
+        }
       }
     })
   }

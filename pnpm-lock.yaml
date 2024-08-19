@@ -106,9 +106,6 @@ devDependencies:
   vue-router:
     specifier: ^4.2.5
     version: 4.4.2(vue@3.4.36)
-  vue-stripe-js:
-    specifier: ^1.0.2
-    version: 1.0.2
 
 packages:
 
@@ -8412,10 +8409,6 @@ packages:
   /vue-spinner@1.0.4:
     resolution: {integrity: sha512-GNG2F+8BLX201JT/jUX+84Gsi3ZteVQwt9K7mues3ts9FcQ95dGn7uu6a5ndSxdYYUEzfh1KngZiOE0u+l4itA==}
     dev: false
-
-  /vue-stripe-js@1.0.2:
-    resolution: {integrity: sha512-QfS/bAseXHvM/Y1LJyRW97MLZs8tEUzCYbvhWYJbiCxc06Q5mj+oNx7GRKLzkU+1Xe5hIL1EOqAdeuffUYXHww==}
-    dev: true
 
   /vue-tabler-icons@2.21.0:
     resolution: {integrity: sha512-rEZYPd37j1sd/9gBFtC1u8wj3Pz1S3gLP1tgexvnivzQPXphc6M+7XuTSOd7wtdpaLt1sQgDmuQxIgczzrvf0A==}
