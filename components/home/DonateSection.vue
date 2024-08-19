@@ -102,12 +102,15 @@ async function donate() {
   if (amount.value >= 1) {
     loading.value = true
 
-    await fetch(`/api/create-checkout-session?locale=${locale.value}&amount=${amount.value * 100}`, {
-      method: 'POST',
-    }).then(async (res) => {
+    await fetch(
+      `${runtimeConfig.public.functionBaseUrl}/create-checkout-session?locale=${locale.value}&amount=${amount.value * 100}`,
+      {
+        method: 'POST',
+      },
+    ).then(async (res) => {
       if (res.ok) {
         loading.value = false
-        const { session } = await res.json()
+        const session = await res.json()
         sessionId.value = session.id
         // this.$segment.track('Donation Started', {
         //   amount: this.amount,

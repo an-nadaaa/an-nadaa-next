@@ -368,7 +368,7 @@ async function donate() {
     this.loading = true
 
     await fetch(
-      `/api/create-checkout-session?locale=${locale.value}&amount=${
+      `${runtimeConfig.public.functionBaseUrl}/create-checkout-session?locale=${locale.value}&amount=${
         amount.value * 100
       }&product=${cause.value.attributes.product}`,
       {
