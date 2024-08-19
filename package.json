@@ -23,6 +23,7 @@
     "@vueuse/components": "^10.9.0",
     "@vueuse/core": "^10.9.0",
     "@vueuse/nuxt": "^10.9.0",
+    "netlify-plugin-inline-functions-env": "^1.0.9",
     "nuxt": "^3.9.3",
     "prettier": "^3.3.3",
     "tailwindcss": "^3.4.7",

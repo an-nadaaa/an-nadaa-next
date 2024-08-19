@@ -91,6 +91,9 @@ devDependencies:
   '@vueuse/nuxt':
     specifier: ^10.9.0
     version: 10.11.0(nuxt@3.12.4)(rollup@4.20.0)(vue@3.4.36)
+  netlify-plugin-inline-functions-env:
+    specifier: ^1.0.9
+    version: 1.0.9
   nuxt:
     specifier: ^3.9.3
     version: 3.12.4(rollup@4.20.0)(vite@5.3.5)
@@ -2939,6 +2942,10 @@ packages:
   /b4a@1.6.6:
     resolution: {integrity: sha512-5Tk1HLk6b6ctmjIkAcU/Ujv/1WqiDl0F0JdRCR80VsOcUlHcu7pWeWRlOqQLHfDEsVx9YH/aif5AG4ehoCtTmg==}
     requiresBuild: true
+    dev: true
+
+  /babel-plugin-transform-inline-environment-variables@0.4.4:
+    resolution: {integrity: sha512-bJILBtn5a11SmtR2j/3mBOjX4K3weC6cq+NNZ7hG22wCAqpc3qtj/iN7dSe9HDiS46lgp1nHsQgeYrea/RUe+g==}
     dev: true
 
   /bail@2.0.2:
@@ -5828,6 +5835,15 @@ packages:
   /negotiator@0.6.3:
     resolution: {integrity: sha512-+EUsqGPLsM+j/zdChZjsnX51g4XrHFOIXwfnCVPGlQk/k5giakcKsuxCObBRu6DSm9opw/O6slWbJdghQM4bBg==}
     engines: {node: '>= 0.6'}
+    dev: true
+
+  /netlify-plugin-inline-functions-env@1.0.9:
+    resolution: {integrity: sha512-a3lfiWKuLYjbWuKSrHkpYLwfq2Um6ib/JJXaoxq0vvms6yQC1xtzKAYUt4jUN4UKeyujBpANH3dEKgkS1tyodg==}
+    dependencies:
+      '@babel/core': 7.25.2
+      babel-plugin-transform-inline-environment-variables: 0.4.4
+    transitivePeerDependencies:
+      - supports-color
     dev: true
 
   /nitropack@2.9.7:
