@@ -16,7 +16,9 @@ export default defineNuxtConfig({
   runtimeConfig: {
     public: {
       functionBaseUrl:
-        process.env.NODE_ENV === 'production' ? `${process.env.BASE_URL_PROD}` : `${process.env.BASE_URL_DEV}`,
+        process.env.NODE_ENV === 'production'
+          ? `${process.env.BASE_URL_PROD}/.netlify/functions`
+          : `${process.env.BASE_URL_DEV}/.netlify/functions`,
       lang: 'en-US',
       STRIPE_PK: process.env.NODE_ENV === 'production' ? process.env.STRIPE_PK_PROD : process.env.STRIPE_PK_DEV,
       STRAPI_API: process.env.NODE_ENV === 'production' ? process.env.STRAPI_API_PROD : process.env.STRAPI_API_DEV,
