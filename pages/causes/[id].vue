@@ -265,6 +265,7 @@ import 'tippy.js/themes/light.css'
 import 'tippy.js/themes/light-border.css'
 // import 'tippy.js/themes/google.css'
 import 'tippy.js/themes/translucent.css'
+import { StripeCheckout } from '@vue-stripe/vue-stripe'
 
 const CURRENCY_NAME = useAppConfig().currencyName
 const localePath = useLocalePath()
@@ -367,8 +368,8 @@ async function donate() {
     this.loading = true
 
     await fetch(
-      `${runtimeConfig.functionBaseUrl}/create-checkout-session?locale=${locale}&amount=${
-        this.amount * 100
+      `/api/create-checkout-session?locale=${locale.value}&amount=${
+        amount.value * 100
       }&product=${cause.value.attributes.product}`,
       {
         method: 'POST',
@@ -376,7 +377,7 @@ async function donate() {
     ).then(async (res) => {
       if (res.ok) {
         this.loading = false
-        const session = await res.json()
+        const { session } = await res.json()
         sessionId.value = session.id
         // this.$segment.track('Donation Started', {
         //   amount: this.amount,

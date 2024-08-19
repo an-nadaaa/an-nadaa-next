@@ -87,31 +87,38 @@
 </template>
 
 <script setup lang="ts">
+import { StripeCheckout } from '@vue-stripe/vue-stripe'
 import MoonLoader from 'vue-spinner/src/MoonLoader.vue'
 
-const pk = process.env.NODE_ENV === 'production' ? process.env.STRIPE_PK_PROD : process.env.STRIPE_PK_DEV
+const runtimeConfig = useRuntimeConfig()
+const pk = runtimeConfig.public.STRIPE_PK
 const sessionId = ref('session_id')
-const amount = 0
+const amount = ref(0)
 const loading = ref(false)
 const checkoutRef = ref<any>(null)
+const { locale } = useI18n()
 
 async function donate() {
-  if (amount >= 1) {
+  if (amount.value >= 1) {
     loading.value = true
-    await this.$axios
-      .$post(
-        `${process.env.functionBaseUrl}/create-checkout-session?locale=${useI18n().locale.value}&amount=${amount * 100}`,
-      )
-      .then((session: any) => {
+
+    await fetch(`/api/create-checkout-session?locale=${locale.value}&amount=${amount.value * 100}`, {
+      method: 'POST',
+    }).then(async (res) => {
+      if (res.ok) {
         loading.value = false
+        const { session } = await res.json()
         sessionId.value = session.id
-        this.$segment.track('General Donation Started', {
-          amount: amount,
-          sessionId: session.id,
-        })
-        // You will be redirected to Stripe's secure checkout page
+        // this.$segment.track('Donation Started', {
+        //   amount: this.amount,
+        //   sessionId: session.id,
+        //   cause: cause.value.attributes.title,
+        //   causeID: cause.value.id,
+        // })
+
         return checkoutRef.value?.redirectToCheckout()
-      })
+      }
+    })
   }
 }
 </script>

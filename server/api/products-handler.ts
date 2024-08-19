@@ -8,11 +8,12 @@ const headers = {
 }
 
 export default defineEventHandler(async (event) => {
+  setHeaders(event, headers)
+
   // CORS
   if (event.method === 'OPTIONS') {
     return {
       statusCode: 200,
-      headers,
     }
   }
 
@@ -69,8 +70,7 @@ export default defineEventHandler(async (event) => {
 
     return {
       statusCode: 200,
-      headers,
-      body: JSON.stringify(product),
+      product,
     }
   }
 
@@ -109,10 +109,6 @@ export default defineEventHandler(async (event) => {
       )
       return
     }
-    return {
-      statusCode: 200,
-      headers,
-      body: JSON.stringify(product),
-    }
+    return product
   }
 })
