@@ -14,14 +14,13 @@ export default defineNuxtConfig({
   },
 
   runtimeConfig: {
-    functionBaseUrl:
-      process.env.NODE_ENV === 'production'
-        ? `${process.env.BASE_URL}/.netlify/functions`
-        : 'http://localhost:8888/.netlify/functions',
     public: {
+      functionBaseUrl:
+        process.env.NODE_ENV === 'production'
+          ? `${process.env.BASE_URL_PROD}/.netlify/functions`
+          : `${process.env.BASE_URL_DEV}/.netlify/functions`,
       lang: 'en-US',
-      STRIPE_PK_DEV: process.env.STRIPE_PK_DEV,
-      STRIPE_PK_PROD: process.env.STRIPE_PK_PROD,
+      STRIPE_PK: process.env.NODE_ENV === 'production' ? process.env.STRIPE_PK_PROD : process.env.STRIPE_PK_DEV,
       STRAPI_API: process.env.NODE_ENV === 'production' ? process.env.STRAPI_API_PROD : process.env.STRAPI_API_DEV,
       STRAPI_API_KEY:
         process.env.NODE_ENV === 'production' ? process.env.STRAPI_API_KEY_PROD : process.env.STRAPI_API_KEY_DEV,

@@ -41,5 +41,5 @@
   from = "/udhiyah"
   to = "/causes/23"
 
-# [[plugins]]
-# package = "netlify-plugin-inline-functions-env"
+[[plugins]]
+  package = "netlify-plugin-inline-functions-env"

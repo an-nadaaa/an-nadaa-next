@@ -1,0 +1,63 @@
+// this function is called before the user is redirected back from the Stripe checkout page to generate a session
+require('dotenv').config()
+const STRIPE_SK = process.env.CONTEXT === 'production' ? process.env.STRIPE_SK_PROD : process.env.STRIPE_SK_DEV
+const BASE_URL = process.env.CONTEXT === 'production' ? process.env.BASE_URL_PROD : process.env.BASE_URL_DEV
+const STRIPE_GENERAL_PRODUCT =
+  process.env.CONTEXT === 'production'
+    ? process.env.STRIPE_GENERAL_PRODUCT_ID_PROD
+    : process.env.STRIPE_GENERAL_PRODUCT_ID_DEV
+
+const stripe = require('stripe')(STRIPE_SK),
+  headers = {
+    'Access-Control-Allow-Origin': BASE_URL,
+    'Access-Control-Allow-Headers': 'Content-Type',
+  }
+
+exports.handler = async function (event, context) {
+  // CORS
+  if (event.httpMethod === 'OPTIONS') {
+    return {
+      statusCode: 200,
+      headers,
+    }
+  }
+  // your server-side functionality
+  let session
+  try {
+    session = await stripe.checkout.sessions.create({
+      line_items: [
+        {
+          price_data: {
+            unit_amount_decimal: event.queryStringParameters.amount,
+            currency: 'usd',
+            product: event.queryStringParameters.product ? event.queryStringParameters.product : STRIPE_GENERAL_PRODUCT,
+          },
+          quantity: 1,
+        },
+      ],
+      mode: 'payment',
+      success_url: `${BASE_URL}${
+        event.queryStringParameters.locale === 'en' ? '' : `/${event.queryStringParameters.locale}`
+      }/success`,
+      cancel_url: `${BASE_URL}${
+        event.queryStringParameters.locale === 'en' ? '' : `/${event.queryStringParameters.locale}`
+      }/causes`,
+      locale: event.queryStringParameters.locale,
+      // payment_method_types: ['card', 'fpx', 'grabpay', 'alipay'],
+    })
+  } catch (error) {
+    return {
+      statusCode: 500,
+      headers,
+      body: JSON.stringify(error),
+    }
+  }
+
+  return {
+    statusCode: 200,
+    headers,
+    body: JSON.stringify(session),
+  }
+  // redirect to the checkout session url
+  // res.redirect(303, session.url)
+}

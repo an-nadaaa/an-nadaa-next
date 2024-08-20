@@ -69,7 +69,6 @@
                   </div>
                 </div>
                 <div class="mt-4 sm:mt-1 sm:ml-3">
-                  <StripeCheckout ref="checkoutRef" :pk="pk" :session-id="sessionId" />
                   <button
                     type="submit"
                     class="relative flex items-center w-full px-5 py-3 text-base font-medium text-white border border-transparent rounded-md shadow bg-primary-600 hover:bg-primary-800 focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-primary-700 sm:px-10">
@@ -87,30 +86,45 @@
 </template>
 
 <script setup lang="ts">
+// import { StripeCheckout } from '@vue-stripe/vue-stripe'
 import MoonLoader from 'vue-spinner/src/MoonLoader.vue'
 
-const pk = process.env.NODE_ENV === 'production' ? process.env.STRIPE_PK_PROD : process.env.STRIPE_PK_DEV
+const runtimeConfig = useRuntimeConfig()
 const sessionId = ref('session_id')
-const amount = 0
+const amount = ref(0)
 const loading = ref(false)
+const { locale } = useI18n()
 
 async function donate() {
-  if (amount >= 1) {
+  if (amount.value >= 1) {
     loading.value = true
-    await this.$axios
-      .$post(
-        `${process.env.functionBaseUrl}/create-checkout-session?locale=${useI18n().locale.value}&amount=${amount * 100}`
-      )
-      .then((session: any) => {
+
+    await fetch(
+      `${runtimeConfig.public.functionBaseUrl}/create-checkout-session?locale=${locale.value}&amount=${amount.value * 100}`,
+      {
+        method: 'POST',
+      },
+    ).then(async (res) => {
+      if (res.ok) {
         loading.value = false
+        const session = await res.json()
         sessionId.value = session.id
-        this.$segment.track('General Donation Started', {
-          amount: amount,
-          sessionId: session.id,
-        })
-        // You will be redirected to Stripe's secure checkout page
-        return this.$refs.checkoutRef.redirectToCheckout()
-      })
+        // this.$segment.track('Donation Started', {
+        //   amount: this.amount,
+        //   sessionId: session.id,
+        //   cause: cause.value.attributes.title,
+        //   causeID: cause.value.id,
+        // })
+
+        if (session) {
+          await navigateTo(session.url, {
+            open: {
+              target: '_blank',
+            },
+          })
+        }
+      }
+    })
   }
 }
 </script>

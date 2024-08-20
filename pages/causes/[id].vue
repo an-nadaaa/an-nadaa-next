@@ -226,7 +226,6 @@
           </div>
         </div>
         <div class="mt-4 sm:mt-1">
-          <StripeCheckout ref="checkoutRef" :pk="pk" :session-id="sessionId" />
           <button
             :disabled="cause?.attributes.closed"
             type="submit"
@@ -263,7 +262,6 @@ import VueEasyLightbox from 'vue-easy-lightbox'
 import 'vue-easy-lightbox/external-css/vue-easy-lightbox.css'
 import 'tippy.js/themes/light.css'
 import 'tippy.js/themes/light-border.css'
-// import 'tippy.js/themes/google.css'
 import 'tippy.js/themes/translucent.css'
 
 const CURRENCY_NAME = useAppConfig().currencyName
@@ -334,48 +332,20 @@ if (error.value) {
   })
 }
 
-// const { data: cause } = await useAsyncData('cause', () =>
-//   fetch(`${STRAPI_API}/causes/${route.params.id}?locale=${locale.value}&${causeQuery}`, {
-//     headers: {
-//       'Content-Type': 'application/json',
-//       Authorization: `Bearer ${STRAPI_API_KEY}`,
-//     },
-//   })
-//     .then(async (res) => {
-//       if (res.ok) {
-//         const response = await res.json()
-//         console.log(response)
-
-//         return response.data
-//       } else {
-//         throw new Error('Failed to fetch')
-//       }
-//     })
-//     .catch((err) => {
-//       console.log('NOT FOUND')
-
-//       throw createError({
-//         statusCode: 404,
-//         statusMessage: 'Campaign not found',
-//         fatal: true,
-//       })
-//     }),
-// )
-
 async function donate() {
-  if (this.amount >= 1) {
-    this.loading = true
+  if (amount.value >= 1) {
+    loading.value = true
 
     await fetch(
-      `${runtimeConfig.functionBaseUrl}/create-checkout-session?locale=${locale}&amount=${
-        this.amount * 100
+      `${runtimeConfig.public.functionBaseUrl}/create-checkout-session?locale=${locale.value}&amount=${
+        amount.value * 100
       }&product=${cause.value.attributes.product}`,
       {
         method: 'POST',
       },
     ).then(async (res) => {
       if (res.ok) {
-        this.loading = false
+        loading.value = false
         const session = await res.json()
         sessionId.value = session.id
         // this.$segment.track('Donation Started', {
@@ -385,7 +355,13 @@ async function donate() {
         //   causeID: cause.value.id,
         // })
 
-        return checkoutRef.value?.redirectToCheckout()
+        if (session) {
+          await navigateTo(session.url, {
+            open: {
+              target: '_blank',
+            },
+          })
+        }
       }
     })
   }
